@@ -25,7 +25,14 @@ both sides.
 - **The art is a clean-room match to Pixlli** (D-0002). Kitted item models are baked at runtime and
   drawn around Modefite (D-0003).
 
-## Status (2026-10-09): all seven kits built and gated; unreleased, not yet seen by Rusty or nfx
+## Status: 0.1.0 released 2026-10-10 in pack 1.80.0; not yet seen by Rusty or nfx in play
+
+Released on Rusty's "Release that shit, 2 min server warning" / "Release everything": tag `v0.1.0`
+at `adea51c`, the gate green on that commit (52 JUnit, 111 art tests, 26 GameTests, 25 booth
+checks), jar `2113341e` on GitHub and on the server, with Set It Down 1.1.1. The server repo's
+`knowledge/releases/pack-1.80.0.md` is the deployment record. Nobody has worn a kit on the box yet.
+
+## What 0.1.0 is (built 2026-10-09)
 
 - **Phase 0, the four spikes, green.**
   - **S1, uninstalling.** `UninstallGameTests`, 9 cases. A kitted piece loses only the kit and keeps
