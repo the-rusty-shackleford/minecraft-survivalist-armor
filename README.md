@@ -38,8 +38,9 @@ its copying item makes two). The recipes are written by `devtools/data/recipes.p
   Set It Down's displays and Serfdom's villagers. Un-kitted pieces keep Armored Legacy. A trim is
   drawn on the kit's cloth and plates by projecting each face onto vanilla's armour box (D-0001);
   hardware (lenses, hoses, pouches, straps) takes none. Glint and dye as the game draws them.
-- **First person.** The chestplate's arm part on your arm, both hands, after the sleeve (client
-  config `firstPersonArms`).
+- **First person.** The kit's sleeve on your arm, both hands, after the skin's sleeve: the arm's cubes
+  that keep within 0.5 of it, so no bracer, glove, tape or shoulder stands in the view down your arm
+  (`KitMesh.sleeve`, D-0007). Client config `firstPersonArms`.
 - **As an item.** A kitted piece is 3D wherever an item is drawn (inventory, hand, ground, frames):
   a model baked at runtime from the kit's own geometry, drawn around Modefite through MixinExtras
   `@WrapMethod` on `ItemRenderer` (D-0003), with the trim's real pattern.
@@ -80,8 +81,11 @@ it by measurement only: `measure.py` reads Rusty's own copy and writes numbers t
 `pixlli-style.json`; nothing that paints reads Pixlli. `tests/test_wall.py` holds the wall.
 
 **The art tests** (`devtools/art/tests`, run by `./gradlew check` as `artTests`) hold every kit to
-the interfaces that let pieces of different kits mix (D-0004), nfx's shared vocabulary, a heavy
-left shoulder, a budget of 40 cubes a piece, no cube buried, and the textures to LabPBR's channels.
+the interfaces that let pieces of different kits mix (D-0004, moved in by D-0007), one envelope of
+how far anything may stand off the body (D-0007: sleeves 0.5, bracers 1.0, the shoulders, 3.0 before
+and behind the torso, nothing where the arms swing; the constants in `kitlib/vocab.py`), nfx's shared
+vocabulary, a heavy left shoulder, a budget of 40 cubes a piece, no cube buried, and the textures to
+LabPBR's channels.
 
 ## Configuration
 
@@ -108,7 +112,7 @@ fetches. `check` runs:
   `devtools/booth/fetch.py` from the published pack): 25 checks of what was drawn, by capturing
   the render, for every wearer, items in four contexts, first person, trims, Set It Down's displays
   and EMI. `runGpuBooth` (`run/gpubooth`, `--gpu`) is the same booth photographed on the GPU with
-  Pixlli and Complementary, plus the seven kits in a row, a cave and a creeper. `-PboothKit=<id>`
+  Pixlli and Complementary, plus the seven kits in a row and a cave. `-PboothKit=<id>`
   films another kit.
 
 ## Licence

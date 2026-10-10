@@ -35,7 +35,10 @@ import org.junit.jupiter.api.Test;
  *   <li>a face: free; covered by another cube on its part; under a cube on another part; on or
  *       under a turned cube; under chain-link;</li>
  *   <li>its material: trimmable, hardware, lit; garment or material sheet;</li>
- *   <li>the piece: dressed, not dressed; one part, several.</li>
+ *   <li>the piece: dressed, not dressed; one part, several;</li>
+ *   <li>first person, an arm's cube: within the sleeve's reach, exactly at it, past it (a bracer, a
+ *       shoulder), turned so a corner passes it; a sleeve face only a shoulder covered; nothing
+ *       within the sleeve.</li>
  * </ul>
  */
 class KitMeshTest {
@@ -156,6 +159,38 @@ class KitMeshTest {
         assertFalse(mesh.dresses(Piece.BOOTS));
         assertTrue(mesh.worn(Piece.BOOTS).isEmpty());
         assertNull(mesh.item(Piece.BOOTS));
+    }
+
+    @Test
+    void firstPersonLeavesTheShoulderOutAndDrawsTheSleeveTopItCovered() {
+        Cube sleeve = new Cube("canvas.sleeve", -8.5, 12, -2.5, -3.5, 24.4, 2.5);
+        Cube pauldron = new Cube("plate.pauldron", -9, 22.9, -3, -3.4, 24.5, 3);
+        KitMesh mesh = KitMesh.of(model(new Folder("chestplate", new Folder("right_arm", sleeve, pauldron))));
+        assertEquals(5 + 6, quads(mesh, Piece.CHESTPLATE).count(), "worn: the sleeve's top under the pauldron");
+        assertEquals(6, mesh.sleeve(Part.RIGHT_ARM).count(), "first person: the whole sleeve, nothing of the pauldron");
+    }
+
+    @Test
+    void firstPersonDrawsOnlyWhatKeepsWithinTheSleeveWhereItStands() {
+        // The sleeve reaches exactly SLEEVE off the arm; the bracer a whole unit; the patch lies within the sleeve's reach
+        // until it is turned, and is judged as it stands.
+        Cube sleeve = new Cube("canvas.sleeve", -8 - KitMesh.SLEEVE, 12, -2.5, -3.5, 24.4, 2.5);
+        Cube bracer = new Cube("leather.bracer", -9, 12.2, -3, -3.4, 16.2, 3);
+        Cube patch = new Cube("canvas.patch", -8.45, 18, -2.45, -8.0, 20, 2.45).turned(-8.2, 19, 0, 0, 20, 0);
+        KitMesh mesh = KitMesh.of(model(new Folder("chestplate", new Folder("right_arm", sleeve, bracer, patch))));
+        assertEquals(18, quads(mesh, Piece.CHESTPLATE).count());
+        assertEquals(6, mesh.sleeve(Part.RIGHT_ARM).count(), "the sleeve alone");
+    }
+
+    @Test
+    void noSleeveWhereNothingOnTheArmKeepsWithinTheSleeve() {
+        Cube shell = new Cube("canvas.shell", -5, 11, -3, 5, 25, 3);
+        Cube pauldron = new Cube("plate.pauldron", 3.5, 22.4, -3.2, 9.5, 24.75, 3.2);
+        KitMesh mesh = KitMesh.of(model(new Folder("chestplate", new Folder("body", shell), new Folder("left_arm", pauldron))));
+        assertEquals(2, mesh.worn(Piece.CHESTPLATE).size());
+        assertNull(mesh.sleeve(Part.LEFT_ARM));
+        assertNull(mesh.sleeve(Part.RIGHT_ARM));
+        assertNull(mesh.sleeve(Part.BODY));
     }
 
     private static KitModel model(Object... top) {

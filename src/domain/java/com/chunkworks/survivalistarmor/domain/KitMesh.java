@@ -19,6 +19,7 @@ package com.chunkworks.survivalistarmor.domain;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,15 +33,27 @@ import java.util.Map;
  * part covers; a cube turned off the axes neither covers nor is covered; and a cube that can be seen
  * through (chain-link) covers nothing.
  *
+ * <p>In first person a chestplate's arm is drawn as its sleeve alone (D-0007): the cubes that keep
+ * within {@link #SLEEVE} of the arm, so nothing strapped on it -- a bracer, a glove, tape, the
+ * shoulder -- blocks the view down your own arm. What is left is culled among itself, so a sleeve's
+ * top that a shoulder covered is drawn there.
+ *
  * <p>AF: for each piece p, {@code worn(p)} is p drawn on a body, part by part, and {@code item(p)}
- * the same quads standing as an item. RI: every array of a {@link Quads} holds its quads' worth of
- * entries; no array is written after construction (they are handed out unwrapped, for drawing
- * without copying, and callers must not write them).
+ * the same quads standing as an item; for each arm a, {@code sleeve(a)} is the chestplate's quads on
+ * a that keep within its sleeve. RI: every array of a {@link Quads} holds its quads' worth of entries; no
+ * array is written after construction (they are handed out unwrapped, for drawing without copying,
+ * and callers must not write them); {@code sleeves} holds only arms.
  */
 public final class KitMesh {
     /** How far out of a face a covering cube must reach, in sixteenths of a block. */
     private static final double REACH = 0.01;
     private static final double SLACK = 1e-6;
+    /** How far off the arm the sleeve stands, in sixteenths (the art's {@code SLEEVE}): first person draws nothing further out. */
+    public static final double SLEEVE = 0.5;
+    /** The game's arms at rest in the project's frame (the art's {@code BODY}): min x, y, z, max x, y, z. */
+    private static final Map<Part, double[]> ARMS = Map.of(
+            Part.RIGHT_ARM, new double[] {-8, 12, -2, -4, 24, 2},
+            Part.LEFT_ARM, new double[] {4, 12, -2, 8, 24, 2});
 
     /**
      * Quads in packed arrays, four corners each.
@@ -62,12 +75,14 @@ public final class KitMesh {
 
     private final Map<Piece, List<PartQuads>> worn;
     private final Map<Piece, Quads> item;
+    private final Map<Part, Quads> sleeves;
     private final int textureWidth;
     private final int textureHeight;
 
-    private KitMesh(Map<Piece, List<PartQuads>> worn, Map<Piece, Quads> item, int textureWidth, int textureHeight) {
+    private KitMesh(Map<Piece, List<PartQuads>> worn, Map<Piece, Quads> item, Map<Part, Quads> sleeves, int textureWidth, int textureHeight) {
         this.worn = worn;
         this.item = item;
+        this.sleeves = sleeves;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
     }
@@ -76,6 +91,7 @@ public final class KitMesh {
     public static KitMesh of(KitModel model) {
         Map<Piece, List<PartQuads>> worn = new EnumMap<>(Piece.class);
         Map<Piece, Quads> item = new EnumMap<>(Piece.class);
+        Map<Part, Quads> sleeves = new EnumMap<>(Part.class);
         for (Piece piece : Piece.values()) {
             List<KitFace> faces = model.faces(piece);
             if (faces.isEmpty()) {
@@ -90,13 +106,37 @@ public final class KitMesh {
                     parts.add(new PartQuads(part, wornQuads(piece, part, shown)));
                     seen.addAll(shown);
                 }
+                if (piece == Piece.CHESTPLATE && (part == Part.RIGHT_ARM || part == Part.LEFT_ARM)) {
+                    List<KitFace> sleeve = withinSleeve(part, on);
+                    List<KitFace> drawn = sleeve.stream().filter(f -> !covered(f, sleeve)).toList();
+                    if (!drawn.isEmpty()) {
+                        sleeves.put(part, wornQuads(piece, part, drawn));
+                    }
+                }
             }
             if (!parts.isEmpty()) {
                 worn.put(piece, List.copyOf(parts));
                 item.put(piece, itemQuads(piece, seen));
             }
         }
-        return new KitMesh(worn, item, model.textureWidth(), model.textureHeight());
+        return new KitMesh(worn, item, sleeves, model.textureWidth(), model.textureHeight());
+    }
+
+    /**
+     * requires: {@code arm} is an arm and every face of {@code faces} rides on it.
+     * effects: returns the faces of {@code faces} whose cube, where its corners stand (turned or not), keeps within
+     *          {@link #SLEEVE} of the arm on every side but the hand's end
+     */
+    static List<KitFace> withinSleeve(Part arm, List<KitFace> faces) {
+        double[] b = ARMS.get(arm);
+        Map<Integer, Double> reach = new HashMap<>();
+        for (KitFace f : faces) {
+            for (Vec c : f.corners()) {
+                double r = Math.max(Math.max(b[0] - c.x(), c.x() - b[3]), Math.max(Math.max(b[2] - c.z(), c.z() - b[5]), c.y() - b[4]));
+                reach.merge(f.cube(), r, Math::max);
+            }
+        }
+        return faces.stream().filter(f -> reach.get(f.cube()) <= SLEEVE + SLACK).toList();
     }
 
     /** effects: returns {@code piece}'s quads, part by part, empty if the kit does not dress it */
@@ -107,6 +147,14 @@ public final class KitMesh {
     /** effects: returns {@code piece}'s quads standing as an item in a one-block box, or null if the kit does not dress it */
     public Quads item(Piece piece) {
         return item.get(piece);
+    }
+
+    /**
+     * effects: returns the chestplate's quads on {@code arm} that keep within its sleeve, in the arm's frame, for first
+     * person; null if the kit's chestplate has nothing on that arm within the sleeve, or {@code arm} is not an arm
+     */
+    public Quads sleeve(Part arm) {
+        return sleeves.get(arm);
     }
 
     /** effects: returns whether the kit dresses {@code piece} */

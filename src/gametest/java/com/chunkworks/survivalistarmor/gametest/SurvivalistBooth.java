@@ -61,7 +61,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.npc.Villager;
@@ -338,16 +337,6 @@ public final class SurvivalistBooth {
         stand(level, 30.5, -0.5, kitted(Items.IRON_HELMET), trimmed(level, kitted(Items.IRON_CHESTPLATE)), kitted(Items.IRON_LEGGINGS),
                 kitted(Items.IRON_BOOTS));
         if (PHOTOS) {
-            // A creeper at the lineup's west end, for the pack's Hector Salamanca creeper (a resource pack the booth is given).
-            Creeper creeper = EntityType.CREEPER.create(level);
-            if (creeper != null) {
-                creeper.moveTo(-11.5, ground, 14.5, 0.0F, 0.0F);
-                creeper.setYHeadRot(0.0F);
-                creeper.setNoAi(true);
-                creeper.setInvulnerable(true);
-                creeper.setSilent(true);
-                level.addFreshEntity(creeper);
-            }
         }
         // The bench Set It Down sets a kitted chestplate on.
         fill(level, 10, 0, 4, 12, 0, 4, Blocks.SMOOTH_STONE);
@@ -459,9 +448,6 @@ public final class SurvivalistBooth {
             shot(s, t, mc, "booth-side-lit-quarter", new Vec3(11.8, 1.6, 3.0), new Vec3(14.5, 1.1, 0.5));
             shot(s, t, mc, "booth-cave", new Vec3(31.7, 1.6, 2.4), new Vec3(30.5, 1.1, -0.5));
             shot(s, t, mc, "booth-cave-side", new Vec3(29.3, 1.5, 0.9), new Vec3(30.5, 1.1, -0.5));
-        }
-        if (PHOTOS) {
-            shot(s, t, mc, "booth-hector", new Vec3(-11.5, 1.5, 17.2), new Vec3(-11.5, 1.0, 14.5));
         }
         // First person: standing, empty-handed, the kitted chestplate on, the hotbar in view.
         s.add(new Step(t[0], () -> {
@@ -614,8 +600,13 @@ public final class SurvivalistBooth {
         hands.renderLeftHand(new PoseStack(), left, LIGHT, mc.player);
         int rightArm = part(mesh, Piece.CHESTPLATE, com.chunkworks.survivalistarmor.domain.Part.RIGHT_ARM);
         int leftArm = part(mesh, Piece.CHESTPLATE, com.chunkworks.survivalistarmor.domain.Part.LEFT_ARM);
-        verdict("first person: the kitted sleeve on your right arm", () -> right.of(WORN) == rightArm ? null : right.toString());
-        verdict("and on your left", () -> left.of(WORN) == leftArm ? null : left.toString());
+        // The sleeve alone (D-0007): fewer quads than the arm worn, exactly the sleeve's.
+        KitMesh.Quads rightSleeve = mesh.sleeve(com.chunkworks.survivalistarmor.domain.Part.RIGHT_ARM);
+        KitMesh.Quads leftSleeve = mesh.sleeve(com.chunkworks.survivalistarmor.domain.Part.LEFT_ARM);
+        verdict("first person: the kit's sleeve alone on your right arm", () -> rightSleeve != null
+                && rightSleeve.count() * 4 < rightArm && right.of(WORN) == rightSleeve.count() * 4 ? null : right + " (worn arm " + rightArm + ")");
+        verdict("and on your left", () -> leftSleeve != null
+                && leftSleeve.count() * 4 < leftArm && left.of(WORN) == leftSleeve.count() * 4 ? null : left + " (worn arm " + leftArm + ")");
         mc.player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
         Capture bare = new Capture();
         hands.renderRightHand(new PoseStack(), bare, LIGHT, mc.player);
@@ -692,7 +683,16 @@ public final class SurvivalistBooth {
     /** One photograph: the player's eye moved to {@code from} (relative to the ground), looking at {@code at}. */
     private static void shot(List<Step> s, int[] t, Minecraft mc, String name, Vec3 from, Vec3 at) {
         s.add(new Step(t[0], () -> onServer(mc, sp -> aim(sp, from.add(0, ground, 0), at.add(0, ground, 0)))));
-        s.add(new Step(t[0] += SETTLE, () -> shoot(mc, name)));
+        s.add(new Step(t[0] += SETTLE, () -> {
+            // A photograph framed from anywhere else is the wrong photograph: say so in the log.
+            Vec3 want = from.add(0, ground, 0);
+            Vec3 eye = mc.gameRenderer.getMainCamera().getPosition();
+            if (eye.distanceTo(want) > 0.05) {
+                LOG.warn("booth: {} taken from {} looking {} {}, not from {}", name, eye, mc.gameRenderer.getMainCamera().getYRot(),
+                        mc.gameRenderer.getMainCamera().getXRot(), want);
+            }
+            shoot(mc, name);
+        }));
         t[0] += 2;
     }
 

@@ -18,3 +18,4 @@ tags: [index]
 | D-0004 | Every kit keeps the same envelopes at the seams, so any pieces mix; the art tests hold them, the vocabulary, the budget and no cube buried, in `check`; the choices made building the seven |
 | D-0005 | Modded armour takes kits by its slot tags; galestone and voidsteel have palettes; Create's backtanks are refused by default (their tank is drawn by a layer of its own) |
 | D-0006 | EMI shows each kit's smithing recipe and the shears' removal, the piece and the result turning together |
+| D-0007 | The bulk pass: one envelope every kit keeps (sleeves 0.5, bracers 1.0, shoulders and torsos pulled in, nothing where the arms swing), held by the art tests; D-0004's seams moved in with it; first person draws the kit's sleeve alone |

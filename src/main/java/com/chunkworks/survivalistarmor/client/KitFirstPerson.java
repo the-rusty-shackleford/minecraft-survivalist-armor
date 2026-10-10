@@ -40,8 +40,9 @@ import net.minecraft.world.item.armortrim.ArmorTrim;
 /**
  * A kitted chestplate's sleeve on your own arm in first person (D-0001, nfx's §13). The game draws
  * your arm and its sleeve and no armour; this draws the chestplate's arm part after the sleeve, on
- * the same pose, so it follows the swing: the same quads everyone else sees on you, trim and glint
- * included. Nothing when the chestplate has no kit, or when the player turns it off.
+ * the same pose, so it follows the swing: the kit's sleeve alone, trim and glint included, with
+ * nothing strapped on it -- bracers, gloves, tape, the shoulder stood in the way down your own arm
+ * (D-0007). Nothing when the chestplate has no kit, or when the player turns it off.
  */
 public final class KitFirstPerson {
     private KitFirstPerson() {}
@@ -59,24 +60,23 @@ public final class KitFirstPerson {
         if (skin == null || skin.piece() != Piece.CHESTPLATE) {
             return;
         }
-        for (KitMesh.PartQuads pq : skin.mesh().worn(Piece.CHESTPLATE)) {
-            if (pq.part() != part) {
-                continue;
-            }
-            pose.pushPose();
-            arm.translateAndRotate(pose);
-            KitDrawer.kit(pose.last(), buffers.getBuffer(KIT), pq.quads(), skin.garment(), skin.material(), skin.materialColour(), light,
-                    OverlayTexture.NO_OVERLAY);
-            ArmorTrim trim = chest.get(DataComponents.TRIM);
-            if (trim != null) {
-                TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET).getSprite(trim.outerTexture(skin.armour()));
-                KitDrawer.trim(pose.last(), sprite.wrap(buffers.getBuffer(Sheets.armorTrimsSheet(trim.pattern().value().decal()))), pq.quads(), light,
-                        OverlayTexture.NO_OVERLAY);
-            }
-            if (chest.hasFoil()) {
-                KitDrawer.glint(pose.last(), buffers.getBuffer(RenderType.armorEntityGlint()), pq.quads(), light, OverlayTexture.NO_OVERLAY);
-            }
-            pose.popPose();
+        KitMesh.Quads quads = skin.mesh().sleeve(part);
+        if (quads == null) {
+            return;
         }
+        pose.pushPose();
+        arm.translateAndRotate(pose);
+        KitDrawer.kit(pose.last(), buffers.getBuffer(KIT), quads, skin.garment(), skin.material(), skin.materialColour(), light,
+                OverlayTexture.NO_OVERLAY);
+        ArmorTrim trim = chest.get(DataComponents.TRIM);
+        if (trim != null) {
+            TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET).getSprite(trim.outerTexture(skin.armour()));
+            KitDrawer.trim(pose.last(), sprite.wrap(buffers.getBuffer(Sheets.armorTrimsSheet(trim.pattern().value().decal()))), quads, light,
+                    OverlayTexture.NO_OVERLAY);
+        }
+        if (chest.hasFoil()) {
+            KitDrawer.glint(pose.last(), buffers.getBuffer(RenderType.armorEntityGlint()), quads, light, OverlayTexture.NO_OVERLAY);
+        }
+        pose.popPose();
     }
 }

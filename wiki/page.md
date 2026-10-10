@@ -60,7 +60,8 @@ back exactly as it was before the kit; the shears lose a point of durability.
   over the goggles and an angled twin-cartridge respirator.
 
 Pieces from different kits mix: any kit's helmet, chestplate, leggings and boots fit together
-without poking through each other.
+without poking through each other. Every kit is cut close: slim sleeves and bracers, low shoulders,
+and nothing on the body where your arms swing.
 
 ![A Roadplate set side-on](img/side.webp)
 ![The same set in a cave by lantern light](img/cave.webp)
@@ -70,8 +71,9 @@ without poking through each other.
 - **A trim still shows** on a kitted piece: on its cloth and its plates, not on lenses, hoses or
   pouches.
 - **Enchanted pieces still shine.**
-- **In first person**, your kitted chestplate's sleeve and bracer are on your arm, in either hand.
-  A player who would rather not see them can turn `firstPersonArms` off in the client config.
+- **In first person**, your kitted chestplate's sleeve is on your arm, in either hand, without the
+  bracers and straps everyone else sees on it, so nothing blocks your view. A player who would rather not
+  see it can turn `firstPersonArms` off in the client config.
 - With shaders (the pack's Complementary), kits have proper normal and specular maps: metal
   shines, cloth doesn't, and Blacklung's and Bluecoat's lenses glow.
 

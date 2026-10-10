@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from kitlib.geom import Kit
 from kitlib.paint import canvas, cloth, glass, hose, leather, painted, rubber, steel
-from kitlib.vocab import along, band, cases, cylinder, pouch, shell
+from kitlib.vocab import ARM_INNER, ARM_OUT, BOOT_SIDE, SLEEVE, along, band, cases, cylinder, pouch, shell
 
 LOOKS = {
     "coat": canvas("#3c3a33", variation=0.05),
@@ -51,58 +51,58 @@ def build() -> Kit:
     k.add("helmet", "head", "rubber.halfmask", (-3.0, 24.0, 4.45), (3.0, 26.5, 5.7))
     k.add("helmet", "head", "rubber.valve", (-1.2, 24.3, 5.7), (1.2, 25.9, 6.3))
     for side, cx, turn in (("r", -3.3, -25.0), ("l", 3.3, 25.0)):
-        k.add("helmet", "head", f"painted.cartridge_{side}", (cx - 1.1, 24.0, 5.0), (cx + 1.1, 26.4, 7.1), rotation=(0.0, turn, 0.0),
+        k.add("helmet", "head", f"painted.cartridge_{side}", (cx - 1.0, 24.0, 4.9), (cx + 1.0, 26.4, 6.4), rotation=(0.0, turn, 0.0),
               origin=(cx, 25.2, 5.4))
     band(k, "helmet", "head", "strap.mask", 0.8, 25.0, 25.7)
 
     # --- chestplate: the jacket, its panels, the scrap on the left ----------------------------------------
-    shell(k, "chestplate", "body", "coat.jacket", 0.9, 12.5, 24.9)
-    k.add("chestplate", "body", "coat.collar", (-4.5, 24.9, -3.3), (4.5, 25.9, 3.3))
-    k.add("chestplate", "body", "mesh.front", (-4.3, 14.6, 3.05), (4.3, 23.6, 3.25), base=True, drop=("north",))
-    k.add("chestplate", "body", "mesh.back", (-4.3, 14.0, -3.25), (4.3, 22.6, -3.05), base=True, drop=("south",))
+    shell(k, "chestplate", "body", "coat.jacket", 0.6, 12.5, 24.6)
+    k.add("chestplate", "body", "coat.collar", (-4.3, 24.6, -3.0), (4.3, 25.6, 3.0))
+    k.add("chestplate", "body", "mesh.front", (-4.3, 14.6, 2.75), (4.3, 23.6, 2.95), base=True, drop=("north",))
+    k.add("chestplate", "body", "mesh.back", (-4.3, 14.0, -2.95), (4.3, 22.6, -2.75), base=True, drop=("south",))
     for i, (x, y) in enumerate(((-4.0, 23.2), (3.7, 23.2), (-4.0, 15.0), (3.7, 15.0))):
-        k.add("chestplate", "body", f"wire.tie{i}", (x, y - 0.3, 2.95), (x + 0.3, y + 0.3, 3.4))
-    k.add("chestplate", "left_arm", "plate.pauldron", (3.2, 22.4, -3.8), (9.8, 26.2, 3.8), base=True,
+        k.add("chestplate", "body", f"wire.tie{i}", (x, y - 0.3, 2.65), (x + 0.3, y + 0.3, 3.1))
+    k.add("chestplate", "left_arm", "plate.pauldron", (3.5, 22.3, -3.2), (9.5, 24.75, 3.2), base=True,
           paint={"hazard": "south", "stencil": {"text": "3", "scale": 3, "face": "east", "at": (0.5, 0.5)}})
-    k.add("chestplate", "left_arm", "plate.pauldron_low", (3.7, 20.6, -3.5), (10.1, 22.6, 3.5), base=True, rotation=(0.0, 0.0, -6.0),
+    k.add("chestplate", "left_arm", "plate.pauldron_low", (3.7, 20.7, -2.95), (9.25, 22.5, 2.95), base=True, rotation=(0.0, 0.0, -6.0),
           origin=(4.0, 21.6, 0.0))
-    shell(k, "chestplate", "right_arm", "coat.sleeve", 0.9, 12.0, 24.4)
-    shell(k, "chestplate", "left_arm", "coat.sleeve", 0.9, 12.0, 24.4)
-    band(k, "chestplate", "left_arm", "mesh.sleeve", 1.1, 16.4, 20.6, base=True)
-    k.add("chestplate", "right_arm", "leather.shoulder", (-9.3, 23.6, -3.2), (-3.7, 25.4, 3.2), paint={"stitch": True})
-    band(k, "chestplate", "right_arm", "mesh.bracer", 1.2, 12.6, 16.6, base=True)
-    band(k, "chestplate", "right_arm", "wire.bracer_tie", 1.3, 14.4, 14.7)
-    band(k, "chestplate", "left_arm", "leather.bracer", 1.15, 12.4, 15.6, paint={"stitch": True})
-    start, end = (-4.6, 24.2), (4.4, 13.0)
-    along(k, "chestplate", "body", "strap.bandolier", start, end, 3.45, 4.05, 1.3)
-    cases(k, "chestplate", "body", "case.cell", start, end, 4.05, 1.2, [0.44, 0.53, 0.61, 0.69, 0.87], (1.3, 1.9))
-    pouch(k, "chestplate", "body", "pouch.chest", (-4.1, 16.6, 3.25), (-1.8, 19.0, 4.45))
-    pouch(k, "chestplate", "body", "pouch.belly", (-4.0, 12.8, 3.25), (-1.4, 15.0, 4.45))
-    pouch(k, "chestplate", "body", "pouch.back", (0.6, 14.4, -4.65), (3.8, 18.4, -3.25), face="north")
-    cylinder(k, "chestplate", "body", "painted.canister", (-2.6, 18.0, -4.7), 1.2, 4.0, "y")
-    k.add("chestplate", "body", "hose.run", (-2.0, 20.0, -4.3), (-1.2, 25.3, -3.5))
-    k.add("chestplate", "body", "hose.run_front", (-2.0, 22.4, 3.3), (-1.2, 25.0, 4.1))
+    shell(k, "chestplate", "right_arm", "coat.sleeve", SLEEVE, 12.0, 24.4)
+    shell(k, "chestplate", "left_arm", "coat.sleeve", SLEEVE, 12.0, 24.4)
+    band(k, "chestplate", "left_arm", "mesh.sleeve", 0.8, 16.4, 20.6, inner=0.55, base=True)
+    k.add("chestplate", "right_arm", "leather.shoulder", (-9.0, 23.1, -3.0), (-3.7, 24.5, 3.0), paint={"stitch": True})
+    band(k, "chestplate", "right_arm", "mesh.bracer", 0.9, 12.6, 16.6, inner=0.55, base=True)
+    band(k, "chestplate", "right_arm", "wire.bracer_tie", ARM_OUT, 14.4, 14.7, inner=ARM_INNER)
+    band(k, "chestplate", "left_arm", "leather.bracer", ARM_OUT, 12.4, 15.6, inner=ARM_INNER, paint={"stitch": True})
+    start, end = (-4.2, 23.8), (3.9, 13.6)
+    along(k, "chestplate", "body", "strap.bandolier", start, end, 3.1, 3.6, 1.2)
+    cases(k, "chestplate", "body", "case.cell", start, end, 3.6, 1.1, [0.44, 0.53, 0.61, 0.69, 0.87], (1.3, 1.8))
+    pouch(k, "chestplate", "body", "pouch.chest", (-4.1, 16.6, 2.95), (-1.8, 19.0, 4.1))
+    pouch(k, "chestplate", "body", "pouch.belly", (-4.0, 12.8, 2.95), (-1.4, 15.0, 4.1))
+    pouch(k, "chestplate", "body", "pouch.back", (0.6, 14.4, -4.3), (3.8, 18.4, -2.95), face="north")
+    cylinder(k, "chestplate", "body", "painted.canister", (-2.6, 18.0, -3.95), 1.0, 4.0, "y")
+    k.add("chestplate", "body", "hose.run", (-2.0, 20.0, -3.75), (-1.2, 25.3, -2.95))
+    k.add("chestplate", "body", "hose.run_front", (-2.0, 22.4, 2.95), (-1.2, 25.0, 3.75))
 
     # --- leggings: work trousers, a panel wired to the left thigh -----------------------------------------
-    k.add("leggings", "body", "cloth.waist", (-4.5, 11.0, -2.6), (4.5, 13.9, 2.6))
-    k.add("leggings", "body", "strap.belt", (-4.75, 11.2, -2.85), (4.75, 12.4, 2.85))
-    k.add("leggings", "body", "plate.buckle", (-1.0, 11.25, 2.85), (1.0, 12.35, 3.3), base=True)
+    k.add("leggings", "body", "cloth.waist", (-4.3, 11.0, -2.4), (4.3, 13.9, 2.4))
+    k.add("leggings", "body", "strap.belt", (-4.55, 11.2, -2.65), (4.55, 12.4, 2.65))
+    k.add("leggings", "body", "plate.buckle", (-1.0, 11.25, 2.65), (1.0, 12.35, 3.0), base=True)
     shell(k, "leggings", "right_leg", "cloth.leg", 0.5, 1.0, 12.25)
     shell(k, "leggings", "left_leg", "cloth.leg", 0.5, 1.0, 12.25)
     k.add("leggings", "left_leg", "mesh.thigh", (0.3, 9.6, 2.6), (3.9, 11.9, 2.8), base=True, drop=("north",))
     band(k, "leggings", "left_leg", "wire.thigh", 0.85, 10.4, 10.7)
-    k.add("leggings", "left_leg", "plate.knee", (0.2, 6.6, 2.55), (3.7, 9.2, 3.4), base=True, paint={"hazard": "south"})
+    k.add("leggings", "left_leg", "plate.knee", (0.2, 6.6, 2.55), (3.7, 9.2, 3.0), base=True, paint={"hazard": "south"})
     k.add("leggings", "right_leg", "leather.knee", (-3.6, 6.8, 2.5), (-0.2, 9.2, 3.0), paint={"stitch": True})
-    pouch(k, "leggings", "right_leg", "pouch.leg", (-4.95, 7.0, -1.3), (-4.4, 10.0, 1.3), face="west")
+    pouch(k, "leggings", "right_leg", "pouch.leg", (-4.75, 7.0, -1.3), (-4.4, 10.0, 1.3), face="west", flap=0.15)
 
     # --- boots: leather, chain-link round the left shin -----------------------------------------------------
     for side, part in (("r", "right_leg"), ("l", "left_leg")):
-        shell(k, "boots", part, f"leather.boot_{side}", 0.95, -0.75, 5.6)
-        x0, x1 = (-4.75, 1.15) if side == "r" else (-1.15, 4.75)
-        k.add("boots", part, f"rubber.sole_{side}", (x0 - 0.15, -1.0, -3.1), (x1 + 0.15, -0.3, 4.0))
-    band(k, "boots", "left_leg", "mesh.gaiter", 1.15, 2.6, 6.4, base=True)
-    band(k, "boots", "left_leg", "wire.gaiter_tie", 1.25, 4.2, 4.5)
-    k.add("boots", "right_leg", "plate.toe", (-4.55, -0.75, 2.95), (0.75, 1.6, 3.75), base=True)
-    band(k, "boots", "right_leg", "strap.lace", 1.0, 1.6, 2.3)
-    band(k, "boots", "right_leg", "leather.cuff", 1.2, 4.6, 6.2)
+        shell(k, "boots", part, f"leather.boot_{side}", 0.75, -0.75, 5.6)
+        x0, x1 = (-4.65, 0.85) if side == "r" else (-0.85, 4.65)
+        k.add("boots", part, f"rubber.sole_{side}", (x0 - 0.15, -1.0, -2.9), (x1 + 0.15, -0.3, 3.5))
+    band(k, "boots", "left_leg", "mesh.gaiter", 0.9, 2.6, 6.4, base=True)
+    band(k, "boots", "left_leg", "wire.gaiter_tie", BOOT_SIDE, 4.2, 4.5)
+    k.add("boots", "right_leg", "plate.toe", (-4.45, -0.75, 2.75), (0.65, 1.6, 3.45), base=True)
+    band(k, "boots", "right_leg", "strap.lace", 0.9, 1.6, 2.3)
+    band(k, "boots", "right_leg", "leather.cuff", BOOT_SIDE, 4.6, 6.2)
     return k

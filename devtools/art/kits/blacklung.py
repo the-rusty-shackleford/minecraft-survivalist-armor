@@ -15,7 +15,7 @@ from __future__ import annotations
 from kitlib.geom import Kit
 from kitlib.paint import canvas, cloth, glow, hose, leather, painted, rubber, steel, webbing
 from kitlib.paint import look
-from kitlib.vocab import along, band, cases, cylinder, pouch, shell
+from kitlib.vocab import ARM_INNER, ARM_OUT, BOOT_SIDE, SLEEVE, along, band, cases, cylinder, pouch, shell
 
 LOOKS = {
     "cloth": cloth("#2c2926", variation=0.04),
@@ -42,59 +42,59 @@ def build() -> Kit:
     k.add("helmet", "head", "cloth.hood_peak", (-4.4, 31.6, 3.9), (4.4, 33.2, 5.6))
     k.add("helmet", "head", "cloth.hood_drape", (-4.6, 22.4, -5.2), (4.6, 25.0, -3.8))
     k.add("helmet", "head", "lames.crown", (-4.0, 32.6, -4.2), (4.0, 33.6, 3.0), base=True)
-    k.add("helmet", "head", "rubber.mask", (-3.8, 24.2, 4.75), (3.8, 30.2, 5.6))
+    k.add("helmet", "head", "rubber.mask", (-3.8, 24.2, 4.75), (3.8, 30.2, 5.4))
     for side, x0, x1 in (("r", -3.4, -0.8), ("l", 0.8, 3.4)):
-        k.add("helmet", "head", f"scrap.rim_{side}", (x0 - 0.3, 26.9, 5.6), (x1 + 0.3, 29.9, 5.8))
-        k.add("helmet", "head", f"lens_lit.eye_{side}", (x0, 27.2, 5.6), (x1, 29.6, 6.0))
-    cylinder(k, "helmet", "head", "canister.snout", (0.0, 25.4, 6.6), 1.5, 2.0, "z")
-    k.add("helmet", "head", "canister.snout_cap", (-1.0, 24.4, 7.6), (1.0, 26.4, 8.0))
-    k.add("helmet", "head", "hose.mask", (0.6, 22.8, 6.0), (1.4, 24.6, 6.8))
+        k.add("helmet", "head", f"scrap.rim_{side}", (x0 - 0.3, 26.9, 5.4), (x1 + 0.3, 29.9, 5.6))
+        k.add("helmet", "head", f"lens_lit.eye_{side}", (x0, 27.2, 5.4), (x1, 29.6, 5.75))
+    cylinder(k, "helmet", "head", "canister.snout", (0.0, 25.4, 5.95), 1.5, 1.1, "z")
+    k.add("helmet", "head", "canister.snout_cap", (-1.0, 24.4, 6.5), (1.0, 26.4, 6.75))
+    k.add("helmet", "head", "hose.mask", (0.6, 22.8, 5.6), (1.4, 24.6, 6.4))
 
     # --- chestplate: coat under lames, hazard shoulders, the ammo bandolier ---------------------------------
-    shell(k, "chestplate", "body", "cloth.coat", 0.9, 12.5, 24.9,
+    shell(k, "chestplate", "body", "cloth.coat", 0.6, 12.5, 24.6,
           paint={"stencil": {"text": "13", "scale": 3, "face": "north", "at": (0.5, 0.4), "colour": "#bfb39a"}})
     for i in range(5):
         top = 24.0 - i * 2.05
         turn = (2.5, -1.5, 3.0, -2.5, 1.5)[i]
-        k.add("chestplate", "body", f"lames.torso{i}", (-4.6 + 0.2 * (i % 2), top - 2.45, 2.9), (4.6 - 0.25 * (i % 3), top, 3.75 - i * 0.12),
-              base=True, rotation=(0.0, 0.0, turn), origin=(0.0, top - 1.2, 3.3), paint={"rivets": "south", "pitch": 8})
-    k.add("chestplate", "left_arm", "lames.pauldron", (3.2, 22.4, -3.9), (9.9, 26.4, 3.9), base=True, paint={"hazard": "south"})
-    k.add("chestplate", "left_arm", "lames.pauldron_low", (3.6, 20.6, -3.6), (10.1, 22.6, 3.6), base=True)
-    k.add("chestplate", "right_arm", "lames.pauldron", (-9.5, 23.2, -3.3), (-3.5, 25.6, 3.3), base=True, paint={"hazard": "south"})
-    shell(k, "chestplate", "right_arm", "cloth.sleeve", 0.9, 12.0, 24.4)
-    shell(k, "chestplate", "left_arm", "cloth.sleeve", 0.9, 12.0, 24.4)
-    band(k, "chestplate", "left_arm", "lames.forearm", 1.2, 13.0, 15.0, base=True)
-    band(k, "chestplate", "left_arm", "lames.forearm_high", 1.25, 15.3, 17.2, base=True)
-    band(k, "chestplate", "right_arm", "strap.wrap", 1.15, 12.6, 16.0, paint={"stitch": True})
-    start, end = (-4.6, 24.2), (4.4, 13.4)
-    along(k, "chestplate", "body", "strap.bandolier", start, end, 3.8, 4.4, 1.5)
-    cases(k, "chestplate", "body", "casing.round", start, end, 4.4, 0.8, [0.27, 0.33, 0.40, 0.47, 0.54, 0.61], (0.7, 1.8))
-    cylinder(k, "chestplate", "body", "canister.hip", (-3.6, 14.4, 4.4), 1.0, 3.0, "y")
-    k.add("chestplate", "body", "hose.chest", (-3.0, 15.9, 3.9), (-2.2, 24.8, 4.7))
-    pouch(k, "chestplate", "body", "pouch.mag", (0.6, 12.9, 3.6), (3.2, 15.5, 5.0))
-    pouch(k, "chestplate", "body", "pouch.mag_small", (3.3, 13.1, 3.4), (4.8, 15.3, 4.6))
+        k.add("chestplate", "body", f"lames.torso{i}", (-4.3 + 0.2 * (i % 2), top - 2.45, 2.6), (4.3 - 0.25 * (i % 3), top, 3.3 - i * 0.1),
+              base=True, rotation=(0.0, 0.0, turn), origin=(0.0, top - 1.2, 2.95), paint={"rivets": "south", "pitch": 8})
+    k.add("chestplate", "left_arm", "lames.pauldron", (3.5, 22.3, -3.2), (9.5, 24.75, 3.2), base=True, paint={"hazard": "south"})
+    k.add("chestplate", "left_arm", "lames.pauldron_low", (3.7, 20.4, -2.95), (9.2, 22.4, 2.95), base=True)
+    k.add("chestplate", "right_arm", "lames.pauldron", (-9.0, 22.8, -3.0), (-3.6, 24.5, 3.0), base=True, paint={"hazard": "south"})
+    shell(k, "chestplate", "right_arm", "cloth.sleeve", SLEEVE, 12.0, 24.4)
+    shell(k, "chestplate", "left_arm", "cloth.sleeve", SLEEVE, 12.0, 24.4)
+    band(k, "chestplate", "left_arm", "lames.forearm", ARM_OUT, 13.0, 15.0, inner=ARM_INNER, base=True)
+    band(k, "chestplate", "left_arm", "lames.forearm_high", 0.85, 15.3, 17.2, inner=0.55, base=True)
+    band(k, "chestplate", "right_arm", "strap.wrap", ARM_OUT, 12.6, 16.0, inner=ARM_INNER, paint={"stitch": True})
+    start, end = (-4.2, 23.8), (3.9, 13.8)
+    along(k, "chestplate", "body", "strap.bandolier", start, end, 3.3, 3.8, 1.3)
+    cases(k, "chestplate", "body", "casing.round", start, end, 3.8, 0.8, [0.27, 0.33, 0.40, 0.47, 0.54, 0.61], (0.7, 1.8))
+    cylinder(k, "chestplate", "body", "canister.hip", (-3.6, 14.4, 4.0), 0.9, 3.0, "y")
+    k.add("chestplate", "body", "hose.chest", (-3.0, 15.9, 3.3), (-2.2, 24.6, 4.0))
+    pouch(k, "chestplate", "body", "pouch.mag", (0.6, 12.9, 3.0), (3.2, 15.5, 4.6))
+    pouch(k, "chestplate", "body", "pouch.mag_small", (3.3, 13.1, 2.9), (4.6, 15.3, 4.1))
 
     # --- leggings -------------------------------------------------------------------------------------------
-    k.add("leggings", "body", "cloth.waist", (-4.5, 11.0, -2.6), (4.5, 13.9, 2.6))
-    k.add("leggings", "body", "strap.belt", (-4.75, 11.2, -2.85), (4.75, 12.4, 2.85))
-    k.add("leggings", "body", "steel.buckle", (-1.0, 11.25, 2.85), (1.0, 12.35, 3.3))
+    k.add("leggings", "body", "cloth.waist", (-4.3, 11.0, -2.4), (4.3, 13.9, 2.4))
+    k.add("leggings", "body", "strap.belt", (-4.55, 11.2, -2.65), (4.55, 12.4, 2.65))
+    k.add("leggings", "body", "steel.buckle", (-1.0, 11.25, 2.65), (1.0, 12.35, 3.0))
     shell(k, "leggings", "right_leg", "cloth.leg", 0.5, 1.0, 12.25)
     shell(k, "leggings", "left_leg", "cloth.leg", 0.5, 1.0, 12.25)
     for i in range(3):
         top = 11.9 - i * 1.4
-        k.add("leggings", "left_leg", f"lames.thigh{i}", (0.5, top - 1.7, 2.5), (4.5, top, 3.05 - i * 0.1), base=True)
+        k.add("leggings", "left_leg", f"lames.thigh{i}", (0.5, top - 1.7, 2.5), (4.5, top, 3.0 - i * 0.1), base=True)
     k.add("leggings", "right_leg", "scrap.thigh", (-4.4, 9.2, 2.5), (-0.5, 11.8, 2.95))
-    k.add("leggings", "left_leg", "lames.knee", (0.2, 6.6, 2.5), (3.7, 9.0, 3.4), base=True)
+    k.add("leggings", "left_leg", "lames.knee", (0.2, 6.6, 2.5), (3.7, 9.0, 3.0), base=True)
     band(k, "leggings", "right_leg", "strap.knee", 0.65, 7.4, 8.2)
-    pouch(k, "leggings", "right_leg", "pouch.leg", (-4.95, 9.4, -1.4), (-4.4, 11.9, 1.2), face="west")
+    pouch(k, "leggings", "right_leg", "pouch.leg", (-4.75, 9.4, -1.4), (-4.4, 11.9, 1.2), face="west", flap=0.15)
 
     # --- boots ----------------------------------------------------------------------------------------------
     for side, part in (("r", "right_leg"), ("l", "left_leg")):
-        shell(k, "boots", part, f"rubber.boot_{side}", 0.95, -0.75, 5.8)
-        x0, x1 = (-4.75, 1.15) if side == "r" else (-1.15, 4.75)
-        k.add("boots", part, f"rubber.sole_{side}", (x0 - 0.15, -1.0, -3.1), (x1 + 0.15, -0.3, 4.0))
-    k.add("boots", "left_leg", "lames.shin", (-0.55, 1.4, 2.95), (4.35, 5.2, 3.5), base=True)
-    k.add("boots", "right_leg", "scrap.toe", (-4.55, -0.75, 2.95), (0.75, 1.5, 3.6))
-    band(k, "boots", "right_leg", "webbing.strap", 1.0, 2.6, 3.3)
-    band(k, "boots", "left_leg", "webbing.strap_top", 1.05, 5.2, 5.9)
+        shell(k, "boots", part, f"rubber.boot_{side}", 0.75, -0.75, 5.8)
+        x0, x1 = (-4.65, 0.85) if side == "r" else (-0.85, 4.65)
+        k.add("boots", part, f"rubber.sole_{side}", (x0 - 0.15, -1.0, -2.9), (x1 + 0.15, -0.3, 3.5))
+    k.add("boots", "left_leg", "lames.shin", (-0.45, 1.4, 2.75), (4.25, 5.2, 3.25), base=True)
+    k.add("boots", "right_leg", "scrap.toe", (-4.45, -0.75, 2.75), (0.65, 1.5, 3.4))
+    band(k, "boots", "right_leg", "webbing.strap", 0.9, 2.6, 3.3)
+    band(k, "boots", "left_leg", "webbing.strap_top", BOOT_SIDE, 5.2, 5.9)
     return k

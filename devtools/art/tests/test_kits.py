@@ -1,7 +1,9 @@
 """The seven kits as nfx's spec needs them (§5, §8) and as they must fit together (devtools/art/kitlib/vocab.py).
 
 Partitions: each kit; each piece; a cube upright or turned; a cube on the body, an arm or a leg; above or
-below each interface line; a garment cube or a material-sheet cube; chain-link or solid.
+below each interface line; a garment cube or a material-sheet cube; chain-link or solid; for the envelope
+(D-0007), each side of the part a cube rides on, the left arm or the right, an arm cube wholly above the
+shoulder line or reaching below it, a body cube between the swing heights or clear of them.
 
 Copyright 2026 Rusty Shackleford and nfx. SPDX-License-Identifier: AGPL-3.0-or-later.
 """
@@ -16,8 +18,9 @@ import pytest
 from kitlib.checks import visibility, world_corners
 from kitlib.geom import BODY, PIECES
 from kitlib.palettes import palettes
-from kitlib.vocab import (BOOT_INSIDE, BOOT_TOP, CHEST_HEM, LEGGINGS_DEPTH, LEGGINGS_TOP, LEGGINGS_WIDTH,
-                          TROUSER_OUTSIDE)
+from kitlib.vocab import (ARM_INNER, ARM_OUT, BOOT_INSIDE, BOOT_SIDE, BOOT_TOE, BOOT_TOP, CHEST_HEM, HELMET_FRONT,
+                          HELMET_SIDE, LEG_OUT, LEGGINGS_DEPTH, LEGGINGS_TOP, LEGGINGS_WIDTH, SHOULDER, SHOULDER_HEAVY,
+                          SHOULDER_LIGHT, SLEEVE, SWING, SWING_HIGH, SWING_LOW, TORSO_DEPTH, TORSO_SIDE, TROUSER_OUTSIDE)
 
 KITS = sorted(p.stem for p in (Path(__file__).resolve().parents[1] / "kits").glob("*.py") if p.stem != "__init__")
 EPS = 1e-6
@@ -149,6 +152,66 @@ def test_boots_stand_outside_any_trousers(made):
     assert not wrong, wrong
 
 
+def standoff(cube) -> dict[str, float]:
+    """effects: returns how far the cube, where it stands, reaches past the body part it rides on: out (away from the body's
+    centre line), inner (toward it), front, back, top and bottom. Negative where it stops short."""
+    lo, hi = bounds(cube)
+    (x0, y0, z0), (x1, y1, z1) = BODY[cube.part]
+    left = (x0 + x1) / 2 > 0 if cube.part != "body" and cube.part != "head" else True
+    out, inner = (hi[0] - x1, x0 - lo[0]) if left else (x0 - lo[0], hi[0] - x1)
+    return {"out": out, "inner": inner, "front": hi[2] - z1, "back": z0 - lo[2], "top": hi[1] - y1, "bottom": y0 - lo[1]}
+
+
+def over(cube, limits: dict[str, float]) -> list[str]:
+    s = standoff(cube)
+    return [f"{cube.piece} {cube.name} {side} {s[side]:.2f} > {limit}" for side, limit in limits.items() if s[side] > limit + EPS]
+
+
+def test_arms_keep_to_the_envelope(made):
+    # D-0007: the sleeve and what is strapped on it below the shoulder stand no further off than a bracer; the shoulders,
+    # heavy left and light right, no further than theirs; nothing reaches in toward the body past ARM_INNER.
+    _, kit = made
+    wrong = []
+    for c in kit.cubes:
+        if not c.part.endswith("_arm"):
+            continue
+        wrong += over(c, {"inner": ARM_INNER})
+        if bounds(c)[0][1] >= SHOULDER - EPS:
+            out, round_, top = SHOULDER_HEAVY if c.part == "left_arm" else SHOULDER_LIGHT
+            wrong += over(c, {"out": out, "front": round_, "back": round_, "top": top})
+        else:
+            wrong += over(c, {"out": ARM_OUT, "front": ARM_OUT, "back": ARM_OUT, "top": SLEEVE})
+    assert not wrong, wrong
+
+
+def test_the_body_keeps_to_the_envelope(made):
+    # D-0007: before and behind, and clear of the arms where they hang and swing.
+    _, kit = made
+    wrong = []
+    for c in kit.cubes:
+        if c.part != "body":
+            continue
+        lo, hi = bounds(c)
+        wrong += over(c, {"front": TORSO_DEPTH, "back": TORSO_DEPTH})
+        side = max(-lo[0], hi[0])
+        if side > TORSO_SIDE + EPS or (lo[1] < SWING_HIGH and hi[1] > SWING_LOW and side > SWING + EPS):
+            wrong.append(f"{c.piece} {c.name} reaches {side:.2f} to the side")
+    assert not wrong, wrong
+
+
+def test_helmets_legs_and_boots_keep_to_the_envelope(made):
+    _, kit = made
+    wrong = []
+    for c in kit.cubes:
+        if c.piece == "helmet":
+            wrong += over(c, {"front": HELMET_FRONT, "out": HELMET_SIDE, "inner": HELMET_SIDE})
+        elif c.piece == "leggings" and c.part != "body":
+            wrong += over(c, {"out": LEG_OUT, "inner": LEG_OUT, "front": LEG_OUT, "back": LEG_OUT})
+        elif c.piece == "boots":
+            wrong += over(c, {"out": BOOT_SIDE, "inner": BOOT_SIDE, "front": BOOT_TOE, "back": BOOT_TOE})
+    assert not wrong, wrong
+
+
 def test_the_shared_vocabulary_is_all_there(made):
     # nfx's §5: a respirator or sealed mask, lenses, one or two hazard placements, a bandolier of four to six
     # cases, two pouches or more on the chest and one on the legs, a hose, exactly one stencil.
@@ -208,3 +271,19 @@ def test_the_checks_bite():
     assert seen[1] == 0.0 and seen[0] == 1.0
     assert seen[3] == 1.0
     assert bounds(k.cubes[4])[0][1] < CHEST_HEM
+
+
+def test_the_envelope_bites():
+    # Each side of each arm measured as its own: a right bracer reaching in toward the body, a left one out; a shoulder
+    # judged by its own side's limits; a turned body cube judged where its corners stand.
+    from kitlib.geom import Kit
+    k = Kit("probe")
+    r = k.add("chestplate", "right_arm", "leather.bracer", (-9.0, 12.0, -3.0), (-3.2, 15.0, 3.0))
+    l = k.add("chestplate", "left_arm", "plate.bracer", (3.5, 12.0, -3.0), (9.2, 15.0, 3.0))
+    pad = k.add("chestplate", "left_arm", "plate.pauldron", (3.5, 21.0, -3.2), (9.4, 24.7, 3.2))
+    case = k.add("chestplate", "body", "case.cell", (3.6, 14.0, 3.0), (4.8, 16.0, 4.0), rotation=(0.0, 0.0, 30.0), origin=(4.2, 15.0, 3.5))
+    assert [s.split()[2] for s in over(r, {"out": ARM_OUT, "inner": ARM_INNER})] == ["inner"]
+    assert [s.split()[2] for s in over(l, {"out": ARM_OUT, "inner": ARM_INNER})] == ["out"]
+    assert over(pad, dict(zip(("out", "front", "top"), SHOULDER_HEAVY))) == []
+    assert over(pad, dict(zip(("out", "front", "top"), SHOULDER_LIGHT))) != []
+    assert bounds(case)[1][0] > SWING > case.hi[0]
