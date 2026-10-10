@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SKS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:leather"
+    },
+    "K": {
+      "item": "survivalistarmor:duster_kit"
+    }
+  },
+  "result": {
+    "id": "survivalistarmor:duster_kit",
+    "count": 2
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SKS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:copper_ingot"
+    },
+    "K": {
+      "item": "survivalistarmor:magpie_kit"
+    }
+  },
+  "result": {
+    "id": "survivalistarmor:magpie_kit",
+    "count": 2
+  }
+}

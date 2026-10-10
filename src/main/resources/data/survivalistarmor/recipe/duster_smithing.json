@@ -1,0 +1,13 @@
+{
+  "type": "survivalistarmor:kit_smithing",
+  "kit": "survivalistarmor:duster",
+  "template": {
+    "item": "survivalistarmor:duster_kit"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "item": "minecraft:string"
+  }
+}

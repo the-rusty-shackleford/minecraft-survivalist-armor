@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SKS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:chain"
+    },
+    "K": {
+      "item": "survivalistarmor:scrapper_kit"
+    }
+  },
+  "result": {
+    "id": "survivalistarmor:scrapper_kit",
+    "count": 2
+  }
+}

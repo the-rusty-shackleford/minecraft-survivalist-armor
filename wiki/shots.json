@@ -1,0 +1,11 @@
+{
+  "shots": [
+    {"from": "run/wikishots/booth-lineup.png", "to": "img/lineup.webp", "crop": [200, 330, 1440, 560]},
+    {"from": "run/wikishots/booth-lineup-left.png", "to": "img/lineup-left.webp", "crop": [260, 250, 1600, 640]},
+    {"from": "run/wikishots/booth-lineup-right.png", "to": "img/lineup-right.webp", "crop": [0, 250, 1340, 640]},
+    {"from": "run/wikishots/booth-smithing.png", "to": "img/smithing.webp", "screen": true, "crop": [620, 280, 980, 620]},
+    {"from": "run/wikishots/booth-side-lit.png", "to": "img/side.webp", "crop": [400, 200, 1200, 700]},
+    {"from": "run/wikishots/booth-cave.png", "to": "img/cave.webp", "crop": [400, 200, 1200, 700]},
+    {"from": "run/wikishots/booth-first-person.png", "to": "img/first-person.webp"}
+  ]
+}

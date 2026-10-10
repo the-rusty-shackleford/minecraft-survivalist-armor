@@ -1,0 +1,17 @@
+# The gametests, as a mod of their own; never shipped.
+modLoader="javafml"
+loaderVersion="[1,)"
+license="AGPL-3.0-or-later"
+
+[[mods]]
+modId="survivalistarmor_gametest"
+version="1.0.0"
+displayName="Survivalist Armor gametests"
+description='''The gametests.'''
+
+[[dependencies.survivalistarmor_gametest]]
+    modId="survivalistarmor"
+    type="required"
+    versionRange="[0.1,)"
+    ordering="AFTER"
+    side="BOTH"

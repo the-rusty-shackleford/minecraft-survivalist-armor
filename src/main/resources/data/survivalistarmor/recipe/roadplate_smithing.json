@@ -1,0 +1,13 @@
+{
+  "type": "survivalistarmor:kit_smithing",
+  "kit": "survivalistarmor:roadplate",
+  "template": {
+    "item": "survivalistarmor:roadplate_kit"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "item": "minecraft:iron_nugget"
+  }
+}

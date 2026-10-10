@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SKS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:blackstone"
+    },
+    "K": {
+      "item": "survivalistarmor:blacklung_kit"
+    }
+  },
+  "result": {
+    "id": "survivalistarmor:blacklung_kit",
+    "count": 2
+  }
+}

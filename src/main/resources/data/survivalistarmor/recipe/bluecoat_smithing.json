@@ -1,0 +1,13 @@
+{
+  "type": "survivalistarmor:kit_smithing",
+  "kit": "survivalistarmor:bluecoat",
+  "template": {
+    "item": "survivalistarmor:bluecoat_kit"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "item": "minecraft:leather"
+  }
+}

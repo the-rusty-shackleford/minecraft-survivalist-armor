@@ -1,0 +1,14 @@
+{
+  "default": "neutral",
+  "materials": {
+    "minecraft:leather": "leather",
+    "minecraft:chainmail": "chainmail",
+    "minecraft:iron": "iron",
+    "minecraft:gold": "gold",
+    "minecraft:diamond": "diamond",
+    "minecraft:netherite": "netherite",
+    "minecraft:turtle": "turtle",
+    "galestone:galestone": "galestone",
+    "voidsteel:voidsteel": "voidsteel"
+  }
+}

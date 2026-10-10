@@ -1,0 +1,13 @@
+{
+  "type": "survivalistarmor:kit_smithing",
+  "kit": "survivalistarmor:blacklung",
+  "template": {
+    "item": "survivalistarmor:blacklung_kit"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "tag": "minecraft:coals"
+  }
+}

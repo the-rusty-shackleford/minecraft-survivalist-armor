@@ -1,0 +1,80 @@
+---
+title: Survivalist Armor — project
+type: overview
+layer: store
+tags: [overview]
+---
+
+# Survivalist Armor
+
+## What this is
+
+Craftable cosmetic armour kits, from nfx's handoff of 2026-10-09 (`knowledge/sources/ARMOR-MOD-SPEC.md`).
+A kit is a smithing template. Applied at the smithing table to any armour piece, it swaps how the
+piece is drawn for a remodelled, retextured scavenger's version (D-0001). The piece keeps its item,
+stats, name, enchantments and trim. Chunkworks, AGPL-3.0-or-later, `com.chunkworks.survivalistarmor`,
+both sides.
+
+- **The brief.** nfx's two reference images are kept outside this public repo, in
+  `minecraft mods/tools/reference/survivalist-armor/`. `reference-crew.webp` is the brief; where it
+  and the spec disagree, the image wins (Hazmat's strong yellow and wrapped forearms, Duster's
+  hood with the face in shadow, Scrapper's diamond weave).
+- **The plan.** `~/.claude/plans/my-buddy-wrote-a-valiant-nebula.md`, approved by Rusty 2026-10-09.
+  Rusty then said "Keep going, I want you to take this to the end": every phase was built through
+  without stopping at the checkpoints.
+- **The art is a clean-room match to Pixlli** (D-0002). Kitted item models are baked at runtime and
+  drawn around Modefite (D-0003).
+
+## Status (2026-10-09): all seven kits built and gated; unreleased, not yet seen by Rusty or nfx
+
+- **Phase 0, the four spikes, green.**
+  - **S1, uninstalling.** `UninstallGameTests`, 9 cases. A kitted piece loses only the kit and keeps
+    every other component wherever it is saved: on its own, in a shulker or bundle, in a chest,
+    frame or dropped item, on a stand or a zombie, in a player's inventory. A mutant expecting the
+    kit kept failed all 9.
+  - **S2, worn.** The hook draws every wearer with EMF, Armored Legacy and Fresh Animations loaded.
+  - **S3, items.** The `@WrapMethod` wrap beats Modefite, Armored Legacy and 3D Default.
+  - **S4, shaders.** Complementary (RP_MODE 3) reads the kits' `_n`/`_s` from the block atlas.
+- **The system** (D-0001, D-0003): the component, the recipe and removal, the worn hook, trims by
+  projection, first person, runtime item models, palettes, blacklist, config, the template icons,
+  the EMI plugin (D-0006).
+- **The seven kits** (D-0004), written in `devtools/art/kits/`: Roadplate, Magpie, Bluecoat,
+  Blacklung, Hazmat, Duster, Scrapper: 62 to 77 cubes a kit, 40 at most a piece. Each previewed in its designed-toward
+  armour and photographed in game under Pixlli and Complementary on the 4070, in a row as nfx's
+  reference stands its crew.
+- **Modded armour** (D-0005): galestone and voidsteel palettes; Create's backtanks refused by
+  default; the pack's other armour takes kits by its slot tags.
+- **Gates.** JUnit 52; art tests 111 (interfaces, vocabulary, budget, buried cubes, the wall,
+  LabPBR channels); GameTests 26; booth 25 checks. All green on 2026-10-09 (`clean build
+  --no-build-cache`, the software booth; the GPU booth's 25 the same). The release record will
+  name the gate at the tag.
+- **Set It Down 1.1.1** (its D-0008): a piece's armour box measured per item and components, so a
+  kitted chestplate set down rests as itself. The booth's check fails on 1.1.0 and passes on 1.1.1.
+
+## Not done, and why
+
+- **Not seen by Rusty or nfx.** The booth photographs are the review; nfx's §17 checkpoint asked
+  for side-on shader shots. With Pixlli, for review only: `run/review/booth-lineup*.png`,
+  `booth-side-lit*.png`, `booth-cave*.png`. Without Pixlli (the wiki's): `run/wikishots/`.
+- **Display transforms** (`assets/survivalistarmor/survivalistarmor/display/*.json`) were set
+  once by photo for the placeholder and not recalibrated per kit: the frames and ground shots look
+  right for Roadplate; the other kits' bulk may want their own `display` overrides.
+- **Modded pieces kitted on a stand**: Myths of the Sea's and Block Factory's armour have not been
+  seen kitted (D-0005).
+- **A second player seeing a kit** can only be checked on the box: one client runs at a time here.
+- **The 20-zombie FPS scene** from the plan's verification was not run.
+
+## Building
+
+- Gradle 9.2.1 runs on JDK 25: `JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 ./gradlew …`. The
+  default `java` is Oracle JDK 26.
+- The Java 21 toolchain that compiles and runs the game is Adoptium 21.0.12, fetched by foojay into
+  `~/.gradle/jdks` (the system's JDK 21 is gone, found 2026-10-09).
+- `./gradlew clean build` is the gate (README, "Building and testing"). `artTests` finds uv on the
+  PATH or in `~/.local/bin`.
+- The booths need a display. Xephyr was removed by an OS upgrade on 2026-10-09 (the desktop is now
+  Wayland): a rootful `Xwayland :7 -geometry 1280x720 -decorate -ac -noreset` stands in for it.
+  The software booth runs there with the mesa variables; the GPU booth on the same display with
+  them unset gets the 4070 (its log's `OpenGL Renderer` names the GeForce).
+- `devtools/booth/fetch.py [--gpu]` fills `run/booth` (`run/gpubooth`) from the published pack, by
+  sha1.

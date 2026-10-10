@@ -1,0 +1,13 @@
+{
+  "type": "survivalistarmor:kit_smithing",
+  "kit": "survivalistarmor:magpie",
+  "template": {
+    "item": "survivalistarmor:magpie_kit"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "addition": {
+    "item": "minecraft:copper_ingot"
+  }
+}

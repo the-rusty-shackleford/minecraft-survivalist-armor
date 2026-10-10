@@ -1,0 +1,1241 @@
+{
+ "meta": {
+  "format_version": "4.5",
+  "model_format": "free"
+ },
+ "resolution": {
+  "width": 64,
+  "height": 64
+ },
+ "elements": [
+  {
+   "name": "canvas.shell",
+   "type": "cube",
+   "uuid": "c0",
+   "from": [
+    -5,
+    23,
+    -5
+   ],
+   "to": [
+    5,
+    33,
+    5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      0,
+      4,
+      4
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      4,
+      0,
+      8,
+      4
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      8,
+      0,
+      12,
+      4
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      12,
+      0,
+      16,
+      4
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      16,
+      0,
+      20,
+      4
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      20,
+      0,
+      24,
+      4
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "plate.crown",
+   "type": "cube",
+   "uuid": "c1",
+   "from": [
+    -4,
+    33,
+    -4
+   ],
+   "to": [
+    4,
+    34,
+    4
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "north": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    }
+   }
+  },
+  {
+   "name": "lens_lit.right",
+   "type": "cube",
+   "uuid": "c2",
+   "from": [
+    -3,
+    28,
+    5
+   ],
+   "to": [
+    -1,
+    30,
+    5.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      24,
+      0,
+      28,
+      4
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      28,
+      0,
+      32,
+      4
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      32,
+      0,
+      36,
+      4
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      36,
+      0,
+      40,
+      4
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      40,
+      0,
+      44,
+      4
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      44,
+      0,
+      48,
+      4
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "canvas.shell",
+   "type": "cube",
+   "uuid": "c3",
+   "from": [
+    -5,
+    11,
+    -3
+   ],
+   "to": [
+    5,
+    25,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      48,
+      0,
+      52,
+      4
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      52,
+      0,
+      56,
+      4
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      56,
+      0,
+      60,
+      4
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      60,
+      0,
+      64,
+      4
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      0,
+      4,
+      4,
+      8
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      4,
+      4,
+      8,
+      8
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "plate.chest",
+   "type": "cube",
+   "uuid": "c4",
+   "from": [
+    -3,
+    16,
+    3
+   ],
+   "to": [
+    3,
+    23,
+    4
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "north": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    }
+   }
+  },
+  {
+   "name": "strap.belt",
+   "type": "cube",
+   "uuid": "c5",
+   "from": [
+    -5,
+    13,
+    3
+   ],
+   "to": [
+    5,
+    14,
+    3.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      8,
+      4,
+      12,
+      8
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      12,
+      4,
+      16,
+      8
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      16,
+      4,
+      20,
+      8
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      20,
+      4,
+      24,
+      8
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      24,
+      4,
+      28,
+      8
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      28,
+      4,
+      32,
+      8
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "canvas.sleeve",
+   "type": "cube",
+   "uuid": "c6",
+   "from": [
+    -9,
+    11,
+    -3
+   ],
+   "to": [
+    -3,
+    25,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      32,
+      4,
+      36,
+      8
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      36,
+      4,
+      40,
+      8
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      40,
+      4,
+      44,
+      8
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      44,
+      4,
+      48,
+      8
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      48,
+      4,
+      52,
+      8
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      52,
+      4,
+      56,
+      8
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "plate.pauldron",
+   "type": "cube",
+   "uuid": "c7",
+   "from": [
+    -10,
+    22,
+    -3.5
+   ],
+   "to": [
+    -3,
+    26,
+    3.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "north": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    }
+   }
+  },
+  {
+   "name": "canvas.sleeve",
+   "type": "cube",
+   "uuid": "c8",
+   "from": [
+    3,
+    11,
+    -3
+   ],
+   "to": [
+    9,
+    25,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      56,
+      4,
+      60,
+      8
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      60,
+      4,
+      64,
+      8
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      0,
+      8,
+      4,
+      12
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      4,
+      8,
+      8,
+      12
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      8,
+      8,
+      12,
+      12
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      12,
+      8,
+      16,
+      12
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "canvas.waist",
+   "type": "cube",
+   "uuid": "c9",
+   "from": [
+    -4.5,
+    11.5,
+    -2.5
+   ],
+   "to": [
+    4.5,
+    14,
+    2.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      16,
+      8,
+      20,
+      12
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      20,
+      8,
+      24,
+      12
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      24,
+      8,
+      28,
+      12
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      28,
+      8,
+      32,
+      12
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      32,
+      8,
+      36,
+      12
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      36,
+      8,
+      40,
+      12
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "buckle.belt",
+   "type": "cube",
+   "uuid": "c10",
+   "from": [
+    -1,
+    12,
+    2.5
+   ],
+   "to": [
+    1,
+    13.5,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      40,
+      8,
+      44,
+      12
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      44,
+      8,
+      48,
+      12
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      48,
+      8,
+      52,
+      12
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      52,
+      8,
+      56,
+      12
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      56,
+      8,
+      60,
+      12
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      60,
+      8,
+      64,
+      12
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "canvas.leg",
+   "type": "cube",
+   "uuid": "c11",
+   "from": [
+    -4.4,
+    1,
+    -2.5
+   ],
+   "to": [
+    0.6,
+    12.5,
+    2.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      12,
+      4,
+      16
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      4,
+      12,
+      8,
+      16
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      8,
+      12,
+      12,
+      16
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      12,
+      12,
+      16,
+      16
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      16,
+      12,
+      20,
+      16
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      20,
+      12,
+      24,
+      16
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "canvas.leg",
+   "type": "cube",
+   "uuid": "c12",
+   "from": [
+    -0.6,
+    1,
+    -2.5
+   ],
+   "to": [
+    4.4,
+    12.5,
+    2.5
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      24,
+      12,
+      28,
+      16
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      28,
+      12,
+      32,
+      16
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      32,
+      12,
+      36,
+      16
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      36,
+      12,
+      40,
+      16
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      40,
+      12,
+      44,
+      16
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      44,
+      12,
+      48,
+      16
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "hide.boot",
+   "type": "cube",
+   "uuid": "c13",
+   "from": [
+    -4.9,
+    -1,
+    -3
+   ],
+   "to": [
+    1.1,
+    5,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      48,
+      12,
+      52,
+      16
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      52,
+      12,
+      56,
+      16
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      56,
+      12,
+      60,
+      16
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      60,
+      12,
+      64,
+      16
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      0,
+      16,
+      4,
+      20
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      4,
+      16,
+      8,
+      20
+     ],
+     "texture": 0
+    }
+   }
+  },
+  {
+   "name": "plate.toe",
+   "type": "cube",
+   "uuid": "c14",
+   "from": [
+    -4.5,
+    -1,
+    3
+   ],
+   "to": [
+    0.7,
+    2,
+    4
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "north": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": 1
+    }
+   }
+  },
+  {
+   "name": "hide.boot",
+   "type": "cube",
+   "uuid": "c15",
+   "from": [
+    -1.1,
+    -1,
+    -3
+   ],
+   "to": [
+    4.9,
+    5,
+    3
+   ],
+   "faces": {
+    "south": {
+     "uv": [
+      8,
+      16,
+      12,
+      20
+     ],
+     "texture": 0
+    },
+    "north": {
+     "uv": [
+      12,
+      16,
+      16,
+      20
+     ],
+     "texture": 0
+    },
+    "west": {
+     "uv": [
+      16,
+      16,
+      20,
+      20
+     ],
+     "texture": 0
+    },
+    "east": {
+     "uv": [
+      20,
+      16,
+      24,
+      20
+     ],
+     "texture": 0
+    },
+    "up": {
+     "uv": [
+      24,
+      16,
+      28,
+      20
+     ],
+     "texture": 0
+    },
+    "down": {
+     "uv": [
+      28,
+      16,
+      32,
+      20
+     ],
+     "texture": 0
+    }
+   }
+  }
+ ],
+ "outliner": [
+  {
+   "name": "helmet",
+   "children": [
+    {
+     "name": "head",
+     "children": [
+      "c0",
+      "c1",
+      "c2"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "chestplate",
+   "children": [
+    {
+     "name": "body",
+     "children": [
+      "c3",
+      "c4",
+      "c5"
+     ]
+    },
+    {
+     "name": "right_arm",
+     "children": [
+      "c6",
+      "c7"
+     ]
+    },
+    {
+     "name": "left_arm",
+     "children": [
+      "c8"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "leggings",
+   "children": [
+    {
+     "name": "body",
+     "children": [
+      "c9",
+      "c10"
+     ]
+    },
+    {
+     "name": "right_leg",
+     "children": [
+      "c11"
+     ]
+    },
+    {
+     "name": "left_leg",
+     "children": [
+      "c12"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "boots",
+   "children": [
+    {
+     "name": "right_leg",
+     "children": [
+      "c13",
+      "c14"
+     ]
+    },
+    {
+     "name": "left_leg",
+     "children": [
+      "c15"
+     ]
+    }
+   ]
+  }
+ ],
+ "textures": [
+  {
+   "name": "garment"
+  },
+  {
+   "name": "material",
+   "uv_width": 16,
+   "uv_height": 16
+  }
+ ]
+}

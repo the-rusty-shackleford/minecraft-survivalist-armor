@@ -1,0 +1,76 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor_gametest:kit/placeholder_pbr/material_turtle"
+    }
+  ]
+}

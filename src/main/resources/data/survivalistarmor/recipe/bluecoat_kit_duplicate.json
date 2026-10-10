@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SKS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "K": {
+      "item": "survivalistarmor:bluecoat_kit"
+    }
+  },
+  "result": {
+    "id": "survivalistarmor:bluecoat_kit",
+    "count": 2
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.chunkworks.survivalistarmor.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "SmithingMenuMixin"
+  ],
+  "client": [
+    "client.AgeableListModelAccessor",
+    "client.HumanoidArmorLayerMixin",
+    "client.ItemRendererMixin",
+    "client.PlayerRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

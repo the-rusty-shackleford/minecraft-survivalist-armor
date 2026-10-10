@@ -1,0 +1,312 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/blacklung/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/bluecoat/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/duster/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/hazmat/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/magpie/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/roadplate/material_voidsteel"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/garment"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_chainmail"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_diamond"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_galestone"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_gold"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_iron"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_leather"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_netherite"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_neutral"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_turtle"
+    },
+    {
+      "type": "single",
+      "resource": "survivalistarmor:kit/scrapper/material_voidsteel"
+    }
+  ]
+}
