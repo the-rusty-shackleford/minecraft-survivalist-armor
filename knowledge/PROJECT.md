@@ -25,7 +25,7 @@ both sides.
 - **The art is a clean-room match to Pixlli** (D-0002). Kitted item models are baked at runtime and
   drawn around Modefite (D-0003).
 
-## Status: 0.2.0 (the bulk pass, D-0007; the kits' own atlas, D-0008) built and gated 2026-10-10, to ship in pack 1.82.0; 0.1.0 released in pack 1.80.0
+## Status: 0.2.0 (the bulk pass, D-0007; the kits' own atlas, D-0008) released 2026-10-11 in pack 1.82.0; 0.1.0 released in pack 1.80.0
 
 **0.2.0** answers a friend's "arms look really chunky and blocky when equipped in first person and third person
 ... clips into player body" (2026-10-10; Rusty: "Give it a shot"). One envelope every kit keeps, held by the art
@@ -41,8 +41,7 @@ His client with 0.2.0 stitches the block atlas at 8192x8192 again.
 
 The gate green on 2026-10-10 (`clean build --no-build-cache`, the software booth): 55 JUnit, 134 art tests, 26
 GameTests, 27 booth checks (the build's count); the GPU booth's 27 the same, under Pixlli and Complementary
-(`run/review/0.2.0-d0008/`). To ship on Rusty's go of 2026-10-10 ("Release the 2026-10-10 batch and Survivalist
-Armor 0.2.0. This is my go."); the friend has not seen 0.2.0.
+(`run/review/0.2.0-d0008/`). Released on Rusty's go ("Release the 2026-10-10 batch and Survivalist Armor 0.2.0. This is my go."), tag `v0.2.0` at `ce60410`, the release gate (2026-10-11, `clean build --no-build-cache`) green again on that commit; sha1 `ecab3146` on GitHub and on the server (the server repo's `knowledge/releases/pack-1.82.0.md`). Nobody has worn a kit on the box yet; the friend has not seen 0.2.0.
 
 ### 0.1.0
 
