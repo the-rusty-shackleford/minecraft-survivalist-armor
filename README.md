@@ -49,8 +49,10 @@ its copying item makes two). The recipes are written by `devtools/data/recipes.p
   composite on diamond, dark alloy on netherite, wire steel on chainmail, hide on leather (which a
   dye tints), scute on turtle, and nfx's galestone and voidsteel (D-0005).
 - **Textures.** Every kit's garment and one material sheet per palette, each with `_n` and `_s`,
-  are `single` sprites on the block atlas (one copy for worn, first person and items; Complementary
-  reads their maps there, spike S4).
+  are `single` sprites on the kits' own atlas, `survivalistarmor:textures/atlas/kits.png` (D-0008):
+  one copy for worn, first person and items; Iris and Complementary read their maps there. On the
+  block atlas, beside Pixlli's 128x, they doubled it from 8192x8192 to 16384x8192. A kitted item's
+  particle icon is its armour's own, on the block atlas, where break particles are drawn from.
 - **EMI.** Each kit's smithing recipe and the removal, the piece and the kitted piece turning
   together (D-0006). Compiled against EMI's API only.
 
@@ -62,7 +64,8 @@ pieces: top folder the piece (`helmet`, `chestplate`, `leggings`, `boots`), the 
 (`plate.breast`, `strap.bandolier`, `lens_lit.eye_r`): trims show on `plate`, `shell`, `lames`,
 `sheet`, `panel`, `canvas`, `cloth`, `coat`, `hide`, `leather`, `padding`, `quilt`, `suit`, `hood`;
 `lens_lit` glows; `mesh` (chain-link) hides nothing behind it. The project's two textures are named
-`garment` and `material`. A resource pack can add or replace kits; F3+T reloads them.
+`garment` and `material`. A resource pack can add or replace kits, listing a new kit's sprites in
+`assets/survivalistarmor/atlases/kits.json` (the file stacks across packs); F3+T reloads them.
 
 ## Art (devtools/art)
 
@@ -109,7 +112,7 @@ fetches. `check` runs:
 - **GameTests** on a real server: applying, swapping and refusing kits, removal, cosmetic-only,
   uninstalling;
 - **the booth** (`runPhotoBooth`, software rendering, `run/booth` filled by
-  `devtools/booth/fetch.py` from the published pack): 25 checks of what was drawn, by capturing
+  `devtools/booth/fetch.py` from the published pack): 27 checks of what was drawn, by capturing
   the render, for every wearer, items in four contexts, first person, trims, Set It Down's displays
   and EMI. `runGpuBooth` (`run/gpubooth`, `--gpu`) is the same booth photographed on the GPU with
   Pixlli and Complementary, plus the seven kits in a row and a cave. `-PboothKit=<id>`

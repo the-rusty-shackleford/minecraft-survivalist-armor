@@ -28,7 +28,7 @@ import org.joml.Vector3f;
 /**
  * Writes a kit's quads to a vertex buffer, as the game's model parts write theirs: each corner
  * through the pose, each normal through its normal matrix. Three ways: the kit itself, from its
- * sprites on the block atlas; the trim, at each trimmable quad's trim coordinates (the buffer is the
+ * sprites on the kits' own atlas; the trim, at each trimmable quad's trim coordinates (the buffer is the
  * trim sprite's own, which places them on its atlas); the glint, at coordinates laid by position at
  * the density the game's armour glint has. A lit quad is drawn at full brightness.
  *

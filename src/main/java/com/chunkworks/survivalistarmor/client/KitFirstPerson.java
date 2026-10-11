@@ -33,7 +33,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 
@@ -46,8 +45,6 @@ import net.minecraft.world.item.armortrim.ArmorTrim;
  */
 public final class KitFirstPerson {
     private KitFirstPerson() {}
-
-    private static final RenderType KIT = RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS);
 
     /** effects: draws the sleeve of {@code player}'s kitted chestplate on {@code arm}, if it has one */
     public static void render(PlayerModel<?> model, ModelPart arm, AbstractClientPlayer player, PoseStack pose, MultiBufferSource buffers, int light) {
@@ -66,7 +63,7 @@ public final class KitFirstPerson {
         }
         pose.pushPose();
         arm.translateAndRotate(pose);
-        KitDrawer.kit(pose.last(), buffers.getBuffer(KIT), quads, skin.garment(), skin.material(), skin.materialColour(), light,
+        KitDrawer.kit(pose.last(), buffers.getBuffer(KitAtlas.WORN), quads, skin.garment(), skin.material(), skin.materialColour(), light,
                 OverlayTexture.NO_OVERLAY);
         ArmorTrim trim = chest.get(DataComponents.TRIM);
         if (trim != null) {

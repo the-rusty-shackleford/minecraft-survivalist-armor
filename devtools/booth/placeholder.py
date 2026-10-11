@@ -55,7 +55,7 @@ GARMENT = 64
 def main() -> None:
     write(KIT, pbr=False)
     # Its twin with deliberately loud LabPBR maps -- every texel a steep bump, polished iron -- to see
-    # whether the shader reads a kit's maps from the block atlas (the plan's spike S4).
+    # whether the shader reads a kit's maps from their atlas (the plan's spike S4; the kits' own since D-0008).
     write(KIT + "_pbr", pbr=True)
 
 
@@ -111,10 +111,10 @@ def write(kit: str, pbr: bool) -> None:
         if pbr:
             for image, suffix in zip(labpbr((16, 16)), ("_n", "_s")):
                 image.save(textures / f"material_{palette}{suffix}.png")
-    atlases = ASSETS / "minecraft/atlases"
+    atlases = ASSETS / "survivalistarmor/atlases"
     atlases.mkdir(parents=True, exist_ok=True)
     sprites = sorted({f"{NS}:kit/{k}/{n}" for k in (KIT, KIT + "_pbr") for n in ["garment"] + [f"material_{p}" for p in PALETTES]})
-    (atlases / "blocks.json").write_text(json.dumps({"sources": [{"type": "single", "resource": s} for s in sprites]}, indent=2) + "\n")
+    (atlases / "kits.json").write_text(json.dumps({"sources": [{"type": "single", "resource": s} for s in sprites]}, indent=2) + "\n")
     print(f"wrote {kit}: {len(CUBES)} cubes" + (", with loud LabPBR maps" if pbr else ""))
 
 

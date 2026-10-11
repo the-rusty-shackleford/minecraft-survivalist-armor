@@ -25,15 +25,24 @@ both sides.
 - **The art is a clean-room match to Pixlli** (D-0002). Kitted item models are baked at runtime and
   drawn around Modefite (D-0003).
 
-## Status: 0.2.0 (the bulk pass, D-0007) built and gated 2026-10-10, unreleased; 0.1.0 released in pack 1.80.0
+## Status: 0.2.0 (the bulk pass, D-0007; the kits' own atlas, D-0008) built and gated 2026-10-10, to ship in pack 1.82.0; 0.1.0 released in pack 1.80.0
 
 **0.2.0** answers a friend's "arms look really chunky and blocky when equipped in first person and third person
 ... clips into player body" (2026-10-10; Rusty: "Give it a shot"). One envelope every kit keeps, held by the art
 tests: sleeves 0.5, bracers 1.0, the shoulders pulled down and in, torsos 3.0 deep, nothing on the body where the
 arms swing; D-0004's seams moved in with it. First person draws the kit's sleeve alone (`KitMesh.sleeve`). The kits'
-sprites on the block atlas went from 10.67 to 9.57 Mpx. The booth's Hector creeper shot went with the pack's
-Hector (pack 1.81.0). The gate green on 2026-10-10 (`clean build --no-build-cache`, the software booth): 55 JUnit,
-133 art tests, 26 GameTests, 25 booth checks. Not released: Rusty and the friend look first.
+sprites went from 10.67 to 9.57 Mpx. The booth's Hector creeper shot went with the pack's Hector (pack 1.81.0).
+
+**The kits' own atlas (D-0008).** Rusty's block atlas went from 8192x8192 to 16384x8192 on pack 1.80.0. Measured on
+a copy of his client: the kits alone did it, and the pack without them has under 1.73 Mpx of the block atlas free,
+so no palette cut or tighter sheet could fit them back. Rusty chose to move them: `KitAtlas`
+(`survivalistarmor:textures/atlas/kits.png`, 4096x4096, listed in `assets/survivalistarmor/atlases/kits.json`).
+His client with 0.2.0 stitches the block atlas at 8192x8192 again.
+
+The gate green on 2026-10-10 (`clean build --no-build-cache`, the software booth): 55 JUnit, 134 art tests, 26
+GameTests, 27 booth checks (the build's count); the GPU booth's 27 the same, under Pixlli and Complementary
+(`run/review/0.2.0-d0008/`). To ship on Rusty's go of 2026-10-10 ("Release the 2026-10-10 batch and Survivalist
+Armor 0.2.0. This is my go."); the friend has not seen 0.2.0.
 
 ### 0.1.0
 

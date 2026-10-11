@@ -3,8 +3,8 @@
 Garment faces on the garment canvas, material faces on the material sheet; shelves, tallest first,
 two pixels of padding round each so filtering at a distance takes a face's own colour, never a
 neighbour's. Each sheet's width is fixed, its height the next multiple of sixteen that holds it: what
-the block atlas's four mipmap levels need, and no more (a power of two doubled Duster's garment, and
-every pixel here is on the block atlas beside Pixlli's 128x).
+four mipmap levels need, and no more (a power of two doubled Duster's garment). The kits' own atlas
+(D-0008) stitches without mipmaps, so the rounding costs a few rows a sheet there and nothing else.
 
 Copyright 2026 Rusty Shackleford and nfx. SPDX-License-Identifier: AGPL-3.0-or-later.
 """

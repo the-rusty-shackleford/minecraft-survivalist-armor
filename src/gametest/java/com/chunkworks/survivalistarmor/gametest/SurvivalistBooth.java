@@ -20,6 +20,7 @@ package com.chunkworks.survivalistarmor.gametest;
 import com.chunkworks.survivalistarmor.Kit;
 import com.chunkworks.survivalistarmor.SurvivalistArmor;
 import com.chunkworks.survivalistarmor.SurvivalistContent;
+import com.chunkworks.survivalistarmor.client.KitAtlas;
 import com.chunkworks.survivalistarmor.client.KitLibrary;
 import com.chunkworks.survivalistarmor.client.KitSkins;
 import com.chunkworks.survivalistarmor.domain.KitMesh;
@@ -40,7 +41,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -116,7 +120,7 @@ public final class SurvivalistBooth {
     /** The kit on film and under the checks: Roadplate, or what -PboothKit names (-Dsurvivalistarmor.booth.kit). */
     private static final ResourceLocation KIT = ResourceLocation.parse(System.getProperty("survivalistarmor.booth.kit", "survivalistarmor:roadplate"));
 
-    private static final RenderType WORN = RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS);
+    private static final RenderType WORN = KitAtlas.WORN;
     private static final int LIGHT = LightTexture.FULL_BRIGHT;
 
     private enum Phase { TITLE, LOADING, PLACING, RUNNING, DONE }
@@ -537,7 +541,19 @@ public final class SurvivalistBooth {
         if (mesh == null) {
             return;
         }
-        verdict("its sprites are on the block atlas", () -> KitSkins.of(kitted(Items.IRON_CHESTPLATE)) != null ? null : "no skin");
+        verdict("its sprites are on the kits' own atlas", () -> {
+            KitSkins.Skin skin = KitSkins.of(kitted(Items.IRON_CHESTPLATE));
+            return skin == null ? "no skin" : skin.garment().atlasLocation().equals(KitAtlas.LOCATION) && skin.material().atlasLocation().equals(KitAtlas.LOCATION)
+                    ? null : "garment on " + skin.garment().atlasLocation() + ", material on " + skin.material().atlasLocation();
+        });
+        verdict("and not one of the kits' sprites on the block atlas (D-0008)", () -> {
+            TextureAtlas kits = (TextureAtlas) mc.getTextureManager().getTexture(KitAtlas.LOCATION);
+            TextureAtlas blocks = mc.getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS);
+            List<ResourceLocation> there = kits.getTextures().keySet().stream()
+                    .filter(n -> !n.equals(MissingTextureAtlasSprite.getLocation()) && !blocks.getSprite(n).contents().name().equals(MissingTextureAtlasSprite.getLocation()))
+                    .toList();
+            return kits.getTextures().size() > 1 && there.isEmpty() ? null : kits.getTextures().size() + " on the kits' atlas, on the block atlas too: " + there;
+        });
         int chest = worn(mesh, Piece.CHESTPLATE), helmet = worn(mesh, Piece.HELMET), legs = worn(mesh, Piece.LEGGINGS), boots = worn(mesh, Piece.BOOTS);
         // Stands.
         Capture kittedStand = draw(mc, dress(new ArmorStand(EntityType.ARMOR_STAND, mc.level), kitted(Items.IRON_HELMET), kitted(Items.IRON_CHESTPLATE),
@@ -584,11 +600,16 @@ public final class SurvivalistBooth {
             mc.getItemRenderer().renderStatic(kitted(Items.IRON_CHESTPLATE), view, LIGHT, OverlayTexture.NO_OVERLAY, new PoseStack(), item, mc.level, 0);
             int want = mesh.item(Piece.CHESTPLATE).count() * 4;
             verdict("a kitted chestplate is its kit's model in " + view.getSerializedName(),
-                    () -> item.of(Sheets.cutoutBlockSheet()) == want ? null : "kit " + item.of(Sheets.cutoutBlockSheet()) + " of " + want + ": " + item);
+                    () -> item.of(KitAtlas.ITEM) == want ? null : "kit " + item.of(KitAtlas.ITEM) + " of " + want + ": " + item);
         }
         verdict("the item renderer answers a kitted stack with the kit's model",
                 () -> mc.getItemRenderer().getModel(kitted(Items.IRON_CHESTPLATE), mc.level, null, 0).getClass().getSimpleName().equals("KitItemModel")
                         ? null : mc.getItemRenderer().getModel(kitted(Items.IRON_CHESTPLATE), mc.level, null, 0).getClass().getName());
+        verdict("a kitted item's particle icon is its armour's own, on the block atlas, where break particles are drawn from", () -> {
+            TextureAtlasSprite icon = mc.getItemRenderer().getModel(kitted(Items.IRON_CHESTPLATE), mc.level, null, 0).getParticleIcon();
+            TextureAtlasSprite own = mc.getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_CHESTPLATE).getParticleIcon();
+            return icon == own && icon.atlasLocation().equals(InventoryMenu.BLOCK_ATLAS) ? null : icon.contents().name() + " on " + icon.atlasLocation();
+        });
         verdict("and a plain one with the pack's", () -> !mc.getItemRenderer().getModel(new ItemStack(Items.IRON_CHESTPLATE), mc.level, null, 0)
                 .getClass().getSimpleName().equals("KitItemModel") ? null : "the kit's");
         // First person: your own arm, the kitted chestplate on.

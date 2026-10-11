@@ -260,7 +260,7 @@ def write_kit(root: Path, kit: Kit, faces: list[Face], spots: dict[int, Spot], s
 
 
 def write_atlas(root: Path, sprites: list[str]) -> None:
-    """effects: lists every kit sprite on the block atlas, singly, so no _n or _s map is stitched as a colour."""
-    out = root / "assets/minecraft/atlases/blocks.json"
+    """effects: lists every kit sprite on the kits' own atlas (D-0008), singly, so no _n or _s map is stitched as a colour."""
+    out = root / "assets/survivalistarmor/atlases/kits.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"sources": [{"type": "single", "resource": s} for s in sorted(sprites)]}, indent=2) + "\n")

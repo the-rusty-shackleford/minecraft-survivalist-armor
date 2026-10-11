@@ -34,7 +34,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 
@@ -49,8 +48,6 @@ import net.minecraft.world.item.armortrim.ArmorTrim;
 public final class KitWornRenderer {
     private KitWornRenderer() {}
 
-    private static final RenderType KIT = RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS);
-
     /**
      * effects: draws {@code entity}'s armour in {@code slot} with its kit and returns true, or draws
      * nothing and returns false if that piece is drawn as itself
@@ -63,7 +60,7 @@ public final class KitWornRenderer {
             return false;
         }
         AgeableListModelAccessor baby = parent.young ? (AgeableListModelAccessor) armourModel : null;
-        VertexConsumer kit = buffers.getBuffer(KIT);
+        VertexConsumer kit = buffers.getBuffer(KitAtlas.WORN);
         for (KitMesh.PartQuads pq : skin.mesh().worn(skin.piece())) {
             pose.pushPose();
             onPart(pose, parent, pq.part(), baby);

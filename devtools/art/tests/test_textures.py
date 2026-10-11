@@ -3,7 +3,7 @@
 LabPBR: _n is the normal's x and y in red and green, occlusion in blue, height in alpha (here 0.8 to 1);
 _s is smoothness in red, F0 in green (0-229 a dielectric, 230 and up a named metal: 230 iron, 231 gold,
 234 copper, 255 the albedo as metal), porosity in blue (0-64), emission in alpha (255 none). Every
-albedo sprite is listed once on the block atlas, its maps never as albedo. The painter keeps colours
+albedo sprite is listed once on the kits' own atlas (D-0008), its maps never as albedo. The painter keeps colours
 within the value floor and ceiling and under the saturation cap but for hazard tape, lit lenses and
 what a kit marks exempt.
 
@@ -47,7 +47,7 @@ def test_every_sheet_has_both_maps_at_its_size(kit):
         albedo, n, s = load(kit, name)
         assert albedo.shape == n.shape == s.shape, name
         h, w = albedo.shape[:2]
-        assert h % 16 == 0 and w % 16 == 0, f"{name} {w}x{h}: the block atlas mipmaps four levels"
+        assert h % 16 == 0 and w % 16 == 0, f"{name} {w}x{h}: not four mipmap levels' worth (D-0004)"
 
 
 @pytest.mark.parametrize("kit", KITS)
@@ -75,7 +75,7 @@ def test_normals_follow_labpbr(kit):
 
 
 def test_the_atlas_lists_every_albedo_once_and_no_map():
-    atlas = json.loads((ASSETS / "minecraft/atlases/blocks.json").read_text())
+    atlas = json.loads((ASSETS / "survivalistarmor/atlases/kits.json").read_text())
     names = [s["resource"] for s in atlas["sources"]]
     assert len(names) == len(set(names))
     assert not [n for n in names if n.endswith("_n") or n.endswith("_s")]
@@ -84,6 +84,13 @@ def test_the_atlas_lists_every_albedo_once_and_no_map():
     for n in names:
         ns, path = n.split(":")
         assert (ASSETS / ns / "textures" / f"{path}.png").is_file(), n
+
+
+def test_no_kit_is_on_the_block_atlas():
+    # D-0008: on the block atlas the kits doubled it beside Pixlli's 128x (8192x8192 to 16384x8192).
+    blocks = ASSETS / "minecraft/atlases/blocks.json"
+    listed = [s.get("resource", s.get("source", "")) for s in json.loads(blocks.read_text())["sources"]] if blocks.exists() else []
+    assert not [n for n in listed if "kit/" in n], listed[:5]
 
 
 @pytest.mark.parametrize("kit", KITS)

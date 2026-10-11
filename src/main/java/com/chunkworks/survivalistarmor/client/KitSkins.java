@@ -25,9 +25,7 @@ import com.chunkworks.survivalistarmor.domain.Piece;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,7 +33,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
@@ -45,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A piece of armour as its kit draws it (D-0001): the kit's look, the piece it dresses, and the two
- * sprites it draws from on the block atlas -- the kit's garment, and its material sheet in the
+ * sprites it draws from on the kits' own atlas (D-0008) -- the kit's garment, and its material sheet in the
  * palette of the piece's own armour material. A piece is drawn as itself when it carries no kit, is
  * not armour, is refused by the server, or carries a kit no resource pack has a look for.
  *
@@ -142,11 +139,10 @@ public final class KitSkins {
         return s;
     }
 
-    /** effects: returns the block atlas's sprite {@code <ns>:kit/<kit>/<name>}, or null if no pack stitched it */
+    /** effects: returns the kits' atlas's sprite {@code <ns>:kit/<kit>/<name>}, or null if no pack stitched it */
     @Nullable
     private static TextureAtlasSprite sprite(ResourceLocation kit, String name) {
-        TextureAtlas atlas = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS);
-        TextureAtlasSprite s = atlas.getSprite(ResourceLocation.fromNamespaceAndPath(kit.getNamespace(), "kit/" + kit.getPath() + "/" + name));
+        TextureAtlasSprite s = KitAtlas.sprite(ResourceLocation.fromNamespaceAndPath(kit.getNamespace(), "kit/" + kit.getPath() + "/" + name));
         return s.contents().name().equals(MissingTextureAtlasSprite.getLocation()) ? null : s;
     }
 

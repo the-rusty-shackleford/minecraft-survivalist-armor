@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -37,9 +36,10 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A kitted piece as an item (D-0003): the worn piece's own quads, standing in a one-block box, baked
- * as real quads on the block atlas -- so anything that measures or draws an item's model finds the
- * piece's geometry. The material sheet's quads carry tint index 0, which the game's item colours
- * give a leather piece's dye. A lit lens is baked at full brightness.
+ * as real quads on the kits' own atlas (D-0008) -- so anything that measures or draws an item's model
+ * finds the piece's geometry. The material sheet's quads carry tint index 0, which the game's item
+ * colours give a leather piece's dye. A lit lens is baked at full brightness. Its particle icon is
+ * the armour item's own, on the block atlas: a breaking piece's particles are drawn from there.
  */
 final class KitItemModel implements BakedModel {
     private final List<BakedQuad> quads;
@@ -54,8 +54,12 @@ final class KitItemModel implements BakedModel {
         this.source = source;
     }
 
-    /** effects: returns {@code q} baked from {@code garment} and {@code material}, standing as {@code transforms} says */
-    static KitItemModel bake(KitMesh.Quads q, TextureAtlasSprite garment, TextureAtlasSprite material, ItemTransforms transforms) {
+    /**
+     * requires: {@code particle} is on the block atlas
+     * effects: returns {@code q} baked from {@code garment} and {@code material}, standing as {@code transforms} says
+     */
+    static KitItemModel bake(KitMesh.Quads q, TextureAtlasSprite garment, TextureAtlasSprite material, TextureAtlasSprite particle,
+                             ItemTransforms transforms) {
         List<BakedQuad> out = new ArrayList<>(q.count());
         float[] p = q.positions(), uv = q.uvs(), n = q.normals();
         for (int i = 0; i < q.count(); i++) {
@@ -78,7 +82,7 @@ final class KitItemModel implements BakedModel {
             }
             out.add(b.bakeQuad());
         }
-        return new KitItemModel(out, transforms, garment, q);
+        return new KitItemModel(out, transforms, particle, q);
     }
 
     /** effects: returns the quads the model was baked from, for drawing the trim and the glint over it */
@@ -128,6 +132,6 @@ final class KitItemModel implements BakedModel {
 
     @Override
     public List<RenderType> getRenderTypes(ItemStack stack, boolean fabulous) {
-        return List.of(Sheets.cutoutBlockSheet());
+        return List.of(KitAtlas.ITEM);
     }
 }

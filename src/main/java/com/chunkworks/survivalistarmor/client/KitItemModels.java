@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
@@ -49,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 public final class KitItemModels {
     private KitItemModels() {}
 
-    private record Key(ResourceLocation kit, Piece piece, TextureAtlasSprite material) {}
+    private record Key(ResourceLocation kit, Piece piece, TextureAtlasSprite material, Item item) {}
 
     private static final Map<Key, KitItemModel> MODELS = new HashMap<>();
 
@@ -57,7 +58,7 @@ public final class KitItemModels {
     @Nullable
     public static BakedModel model(ItemStack stack) {
         KitSkins.Skin skin = KitSkins.of(stack);
-        return skin == null ? null : model(skin);
+        return skin == null ? null : model(skin, stack.getItem());
     }
 
     /**
@@ -70,12 +71,12 @@ public final class KitItemModels {
         if (skin == null) {
             return false;
         }
-        KitItemModel model = model(skin);
+        KitItemModel model = model(skin, stack.getItem());
         pose.pushPose();
         ClientHooks.handleCameraTransforms(pose, model, view, leftHand);
         pose.translate(-0.5F, -0.5F, -0.5F);
         ItemRenderer items = Minecraft.getInstance().getItemRenderer();
-        VertexConsumer out = ItemRenderer.getFoilBufferDirect(buffers, Sheets.cutoutBlockSheet(), true, stack.hasFoil());
+        VertexConsumer out = ItemRenderer.getFoilBufferDirect(buffers, KitAtlas.ITEM, true, stack.hasFoil());
         items.renderModelLists(model, stack, light, overlay, pose, out);
         ArmorTrim trim = stack.get(DataComponents.TRIM);
         if (trim != null) {
@@ -87,13 +88,15 @@ public final class KitItemModels {
         return true;
     }
 
-    /** effects: forgets every baked model, for a resource reload or a new block atlas */
+    /** effects: forgets every baked model, for a resource reload or a new atlas */
     static void clear() {
         MODELS.clear();
     }
 
-    private static KitItemModel model(KitSkins.Skin skin) {
-        return MODELS.computeIfAbsent(new Key(skin.kit(), skin.piece(), skin.material()),
-                k -> KitItemModel.bake(skin.mesh().item(skin.piece()), skin.garment(), skin.material(), KitLibrary.INSTANCE.display(skin.piece())));
+    private static KitItemModel model(KitSkins.Skin skin, Item item) {
+        return MODELS.computeIfAbsent(new Key(skin.kit(), skin.piece(), skin.material(), item),
+                k -> KitItemModel.bake(skin.mesh().item(skin.piece()), skin.garment(), skin.material(),
+                        Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(item).getParticleIcon(),
+                        KitLibrary.INSTANCE.display(skin.piece())));
     }
 }

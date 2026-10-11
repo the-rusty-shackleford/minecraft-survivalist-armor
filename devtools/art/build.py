@@ -5,7 +5,7 @@
 For each kit named (every kit in devtools/art/kits/ if none): its geometry, its faces culled as the
 mod culls them, packed eight pixels to a unit, painted, and written into src/main/resources -- its
 Blockbench project, its garment and one material sheet per palette, each with LabPBR _n and _s maps.
-Then the block atlas's list of every kit's sprites, each kit template's icon (its signature piece, with
+Then the kits' atlas's list of every kit's sprites, each kit template's icon (its signature piece, with
 its maps), the scrap slot's ghost, and a preview sheet per kit in build/art/: the front, both sides,
 the back and a three-quarter view on a body, in the armour the kit is designed toward first.
 
